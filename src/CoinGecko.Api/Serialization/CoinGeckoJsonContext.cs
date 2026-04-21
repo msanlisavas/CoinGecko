@@ -13,6 +13,7 @@ namespace CoinGecko.Api.Serialization;
     NumberHandling         = JsonNumberHandling.AllowReadingFromString,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     Converters             = new[] { typeof(UnixSecondsConverter) })]
+[JsonSerializable(typeof(CoinGecko.Api.Models.PingResponse))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource>))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource[]>))]
 [JsonSerializable(typeof(JsonApiResource))]
