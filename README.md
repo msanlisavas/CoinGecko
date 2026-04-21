@@ -12,7 +12,7 @@ Strongly typed, AOT-safe .NET client for the [CoinGecko](https://www.coingecko.c
 |---|---|---|
 | `CoinGecko.Api` | REST core (14 sub-clients, 100+ endpoints) | **v0.1.0** |
 | `CoinGecko.Api.WebSockets` | Streaming beta client (ActionCable over WSS) | v0.1.0-preview |
-| `CoinGecko.Api.AiAgentHub` | `Microsoft.Extensions.AI` function tools | Planned |
+| `CoinGecko.Api.AiAgentHub` | `Microsoft.Extensions.AI` function tools | v0.1.0-preview |
 | `CoinGecko.Api.AiAgentHub.Mcp` | MCP client for CoinGecko's hosted MCP server | Planned |
 
 ## Install
@@ -72,6 +72,36 @@ await stream.SubscribeCoinPricesAsync(
 See [`samples/CoinGecko.Api.Samples.StreamConsole`](samples/CoinGecko.Api.Samples.StreamConsole) for a runnable example.
 
 **Preview status:** CoinGecko's WebSocket API is beta; `CoinGecko.Api.WebSockets` ships in 0.x until upstream stabilizes. Expect breaking changes across minor versions.
+
+## AI tools (preview)
+
+Drop CoinGecko capabilities into any `Microsoft.Extensions.AI` agent in one line:
+
+```csharp
+using CoinGecko.Api;
+using CoinGecko.Api.AiAgentHub;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
+
+var services = new ServiceCollection();
+services.AddCoinGeckoApi(o => o.ApiKey = Environment.GetEnvironmentVariable("COINGECKO_API_KEY"));
+using var sp = services.BuildServiceProvider();
+var gecko = sp.GetRequiredService<ICoinGeckoClient>();
+
+var tools = CoinGeckoAiTools.Create(gecko, new()
+{
+    Tools = CoinGeckoToolSet.CoinPrices | CoinGeckoToolSet.Trending,
+});
+
+IChatClient chat = /* OpenAI / Anthropic / Azure / Ollama / Gemini — any IChatClient */;
+var response = await chat.GetResponseAsync(
+    "What's BTC at right now and what's trending?",
+    new ChatOptions { Tools = tools.Cast<AITool>().ToArray() });
+```
+
+9 tools across 8 categories (`CoinPrices`, `CoinSearch`, `MarketData`, `Trending`, `Categories`, `Nfts`, `Derivatives`, `Onchain`). See [`samples/CoinGecko.Api.Samples.AgentDemo`](samples/CoinGecko.Api.Samples.AgentDemo).
+
+**Preview status:** not AOT-compatible (reflection-based `AIFunctionFactory`). v0.2 will ship a source-generated alternative.
 
 ## Sub-clients
 
