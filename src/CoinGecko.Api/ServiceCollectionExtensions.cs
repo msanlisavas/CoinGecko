@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
             services.AddOptions<CoinGeckoOptions>();
         }
 
+        services.AddTransient<CoinGeckoTelemetryHandler>();
         services.AddTransient<CoinGeckoAuthHandler>();
         services.AddTransient<CoinGeckoPlanHandler>();
         services.AddTransient<CoinGeckoRateLimitHandler>();
@@ -35,6 +36,7 @@ public static class ServiceCollectionExtensions
                 ? "https://api.coingecko.com/api/v3/"
                 : "https://pro-api.coingecko.com/api/v3/");
         })
+        .AddHttpMessageHandler<CoinGeckoTelemetryHandler>()
         .AddHttpMessageHandler<CoinGeckoAuthHandler>()
         .AddHttpMessageHandler<CoinGeckoPlanHandler>()
         .AddHttpMessageHandler<CoinGeckoRateLimitHandler>()
