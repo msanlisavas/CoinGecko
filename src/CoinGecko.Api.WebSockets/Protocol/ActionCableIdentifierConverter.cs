@@ -1,3 +1,5 @@
+using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -25,15 +27,26 @@ public sealed class ActionCableIdentifierConverter : JsonConverter<ActionCableId
             return null;
         }
 
-        // Inner JSON is a small, fixed-shape object — deserialize with plain STJ reflection on the
-        // known simple type. This is AOT-safe because ActionCableIdentifier has a trivial shape.
-        return JsonSerializer.Deserialize(json, ActionCableProtocolJsonContext.Default.ActionCableIdentifier);
+        // Inner JSON is a small, fixed-shape object. Parse it manually to avoid re-entering this
+        // converter (which would cause infinite recursion since [JsonConverter] is on the type).
+        var doc = JsonDocument.Parse(json);
+        var channel = doc.RootElement.GetProperty("channel").GetString() ?? string.Empty;
+        return new ActionCableIdentifier { Channel = channel };
     }
 
     /// <inheritdoc/>
     public override void Write(Utf8JsonWriter writer, ActionCableIdentifier value, JsonSerializerOptions options)
     {
-        var inner = JsonSerializer.Serialize(value, ActionCableProtocolJsonContext.Default.ActionCableIdentifier);
-        writer.WriteStringValue(inner);
+        // Manually produce {"channel":"<name>"} as a JSON-encoded string to avoid re-entering
+        // this converter (which would cause infinite recursion since [JsonConverter] is on the type).
+        using var ms = new MemoryStream();
+        using (var inner = new Utf8JsonWriter(ms))
+        {
+            inner.WriteStartObject();
+            inner.WriteString("channel", value.Channel);
+            inner.WriteEndObject();
+        }
+
+        writer.WriteStringValue(Encoding.UTF8.GetString(ms.ToArray()));
     }
 }

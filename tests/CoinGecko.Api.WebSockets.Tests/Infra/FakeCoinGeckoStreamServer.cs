@@ -132,7 +132,14 @@ public sealed class FakeCoinGeckoStreamServer : IAsyncDisposable
     {
         if (_currentSocket?.State == WebSocketState.Open)
         {
-            await _currentSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "test cleanup", CancellationToken.None);
+            try
+            {
+                await _currentSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "test cleanup", CancellationToken.None);
+            }
+            catch (Exception)
+            {
+                // best-effort: socket may already be closing or disposed
+            }
         }
 
         await _app.StopAsync();
