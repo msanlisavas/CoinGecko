@@ -45,6 +45,9 @@ public sealed partial class CoinGeckoStream : ICoinGeckoStream
     /// <summary>Last exception that caused a transition away from <see cref="StreamState.Connected"/>, or <c>null</c> if healthy.</summary>
     public Exception? LastException { get; private set; }
 
+    /// <summary>Number of consecutive reconnect attempts since the last successful connection, or zero when healthy.</summary>
+    public int ReconnectAttempts => _reconnectAttempts;
+
     /// <summary>Raised on every state transition.</summary>
     public event EventHandler<StreamStateChangedEventArgs>? StateChanged;
 
