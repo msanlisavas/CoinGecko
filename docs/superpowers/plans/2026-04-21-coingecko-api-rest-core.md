@@ -26,6 +26,7 @@ This plan is large. Each **Phase** is a cohesive block of work that produces a c
 - **Test discipline:** Every production code change is preceded by a failing test. Run `dotnet test` after each task with a `.Tests` touch; expected output for each test is documented in the task.
 - **Nullable + warnings-as-errors** are on repo-wide (Phase 0 sets this). Treat every warning as a blocker.
 - **No placeholders in code.** If a task shows a method body as `throw new NotImplementedException();`, a later task in the same phase replaces it. Do not leave those across phases.
+- **XML docs on every public and protected member.** `TreatWarningsAsErrors=true` + `GenerateDocumentationFile=true` in Release turns CS1591 (missing XML doc) into a build error for public types, public members, and **protected constructors**. Code blocks in this plan may omit redundant-seeming docs (e.g. on auto-properties emitted via primary-constructor params, on trivial setter-only fields, on `Read`/`Write` overrides of `JsonConverter<T>`). If Release build fails CS1591, add a one-line `/// <summary>...</summary>` to the missing member (or `/// <inheritdoc/>` for overrides) and commit as part of the same task. This is not a "plan deviation" — it is a house rule. Do NOT suppress CS1591; add the doc.
 
 ---
 
