@@ -11,7 +11,7 @@ Strongly typed, AOT-safe .NET client for the [CoinGecko](https://www.coingecko.c
 | Package | Purpose | Status |
 |---|---|---|
 | `CoinGecko.Api` | REST core (14 sub-clients, 100+ endpoints) | **v0.1.0** |
-| `CoinGecko.Api.WebSockets` | Streaming beta client (ActionCable over WSS) | Planned |
+| `CoinGecko.Api.WebSockets` | Streaming beta client (ActionCable over WSS) | v0.1.0-preview |
 | `CoinGecko.Api.AiAgentHub` | `Microsoft.Extensions.AI` function tools | Planned |
 | `CoinGecko.Api.AiAgentHub.Mcp` | MCP client for CoinGecko's hosted MCP server | Planned |
 
@@ -44,6 +44,34 @@ using var scope = CoinGeckoClientFactory.Create("my-api-key", CoinGeckoPlan.Pro)
 var btc = await scope.Client.Coins.GetAsync("bitcoin");
 Console.WriteLine($"BTC: ${btc.MarketData!.CurrentPrice!["usd"]}");
 ```
+
+## Streaming (preview)
+
+Real-time price and trade feeds via CoinGecko's beta WebSocket API. Requires an Analyst+ plan key.
+
+```csharp
+using CoinGecko.Api.WebSockets;
+using Microsoft.Extensions.DependencyInjection;
+
+var services = new ServiceCollection();
+services.AddCoinGeckoStream(opts =>
+{
+    opts.ApiKey = Environment.GetEnvironmentVariable("COINGECKO_API_KEY");
+});
+using var sp = services.BuildServiceProvider();
+
+var stream = sp.GetRequiredService<ICoinGeckoStream>();
+await stream.ConnectAsync();
+
+await stream.SubscribeCoinPricesAsync(
+    coinIds: ["bitcoin", "ethereum"],
+    vsCurrencies: ["usd"],
+    onTick: tick => Console.WriteLine($"{tick.CoinId}: ${tick.Price:N2}"));
+```
+
+See [`samples/CoinGecko.Api.Samples.StreamConsole`](samples/CoinGecko.Api.Samples.StreamConsole) for a runnable example.
+
+**Preview status:** CoinGecko's WebSocket API is beta; `CoinGecko.Api.WebSockets` ships in 0.x until upstream stabilizes. Expect breaking changes across minor versions.
 
 ## Sub-clients
 
