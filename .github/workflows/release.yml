@@ -8,14 +8,10 @@ name: release
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+-api'
-      - 'v[0-9]+.[0-9]+.[0-9]+-api-*'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-websockets'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-websockets-*'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-aiagenthub'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-aiagenthub-*'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-mcp'
-      - 'v[0-9]+.[0-9]+.[0-9]+-preview-mcp-*'
+      - 'v*-api'
+      - 'v*-preview-websockets'
+      - 'v*-preview-aiagenthub'
+      - 'v*-preview-mcp'
 
 permissions:
   contents: write
