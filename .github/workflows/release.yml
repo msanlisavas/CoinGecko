@@ -1,31 +1,90 @@
 name: release
 
+# Tag-pattern matrix. Each tag triggers packing + publishing exactly one package.
+#   v{semver}-api                           → CoinGecko.Api
+#   v{semver}-preview-websockets            → CoinGecko.Api.WebSockets
+#   v{semver}-preview-aiagenthub            → CoinGecko.Api.AiAgentHub
+#   v{semver}-preview-mcp                   → CoinGecko.Api.AiAgentHub.Mcp
 on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+-api'
       - 'v[0-9]+.[0-9]+.[0-9]+-api-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-websockets'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-websockets-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-aiagenthub'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-aiagenthub-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-mcp'
+      - 'v[0-9]+.[0-9]+.[0-9]+-preview-mcp-*'
 
 permissions:
   contents: write
 
 jobs:
   pack-and-publish:
+    name: Pack + publish to NuGet
     runs-on: ubuntu-latest
-    environment: nuget-publish
+    environment: Production
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # MinVer needs full tag history
+
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Resolve package from tag
+        id: resolve
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          case "$TAG" in
+            *-api|*-api-*)
+              echo "project=src/CoinGecko.Api/CoinGecko.Api.csproj" >> "$GITHUB_OUTPUT"
+              echo "package=CoinGecko.Api" >> "$GITHUB_OUTPUT"
+              ;;
+            *-preview-websockets|*-preview-websockets-*)
+              echo "project=src/CoinGecko.Api.WebSockets/CoinGecko.Api.WebSockets.csproj" >> "$GITHUB_OUTPUT"
+              echo "package=CoinGecko.Api.WebSockets" >> "$GITHUB_OUTPUT"
+              ;;
+            *-preview-aiagenthub|*-preview-aiagenthub-*)
+              echo "project=src/CoinGecko.Api.AiAgentHub/CoinGecko.Api.AiAgentHub.csproj" >> "$GITHUB_OUTPUT"
+              echo "package=CoinGecko.Api.AiAgentHub" >> "$GITHUB_OUTPUT"
+              ;;
+            *-preview-mcp|*-preview-mcp-*)
+              echo "project=src/CoinGecko.Api.AiAgentHub.Mcp/CoinGecko.Api.AiAgentHub.Mcp.csproj" >> "$GITHUB_OUTPUT"
+              echo "package=CoinGecko.Api.AiAgentHub.Mcp" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "::error::Unknown tag pattern: $TAG"
+              exit 1
+              ;;
+          esac
+
+      - name: Restore
+        run: dotnet restore CoinGecko.sln
+
+      - name: Build
+        run: dotnet build ${{ steps.resolve.outputs.project }} -c Release --no-restore
+
+      - name: Test solution
+        run: dotnet test CoinGecko.sln -c Release --no-build
+
       - name: Pack
-        run: dotnet pack src/CoinGecko.Api/CoinGecko.Api.csproj -c Release -o artifacts
+        run: dotnet pack ${{ steps.resolve.outputs.project }} -c Release --no-build -o artifacts
+
+      - name: List artifacts
+        run: ls -la artifacts/
+
       - name: Push to NuGet
         run: dotnet nuget push 'artifacts/*.nupkg' --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+
       - name: GitHub release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: 'artifacts/*'
+          prerelease: ${{ contains(github.ref_name, '-preview') }}
