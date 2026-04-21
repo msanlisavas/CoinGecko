@@ -501,48 +501,48 @@ public sealed partial class CoinGeckoStream : ICoinGeckoStream
             switch (channel)
             {
                 case C1Channel:
-                {
-                    var tick = message.Deserialize(TicksJsonContext.Default.CoinPriceTick);
-                    if (tick is not null)
                     {
-                        _c1.Dispatch(tick);
-                    }
+                        var tick = message.Deserialize(TicksJsonContext.Default.CoinPriceTick);
+                        if (tick is not null)
+                        {
+                            _c1.Dispatch(tick);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case G1Channel:
-                {
-                    var tick = message.Deserialize(TicksJsonContext.Default.OnchainTokenPriceTick);
-                    if (tick is not null)
                     {
-                        _g1.Dispatch(tick);
-                    }
+                        var tick = message.Deserialize(TicksJsonContext.Default.OnchainTokenPriceTick);
+                        if (tick is not null)
+                        {
+                            _g1.Dispatch(tick);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case G2Channel:
-                {
-                    var trade = message.Deserialize(TicksJsonContext.Default.DexTrade);
-                    if (trade is not null)
                     {
-                        _g2.Dispatch(trade);
-                    }
+                        var trade = message.Deserialize(TicksJsonContext.Default.DexTrade);
+                        if (trade is not null)
+                        {
+                            _g2.Dispatch(trade);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case G3Channel:
-                {
-                    var candle = message.Deserialize(TicksJsonContext.Default.OnchainOhlcvCandle);
-                    if (candle is not null)
                     {
-                        _g3.Dispatch(candle);
-                    }
+                        var candle = message.Deserialize(TicksJsonContext.Default.OnchainOhlcvCandle);
+                        if (candle is not null)
+                        {
+                            _g3.Dispatch(candle);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 default:
                     Log.UnknownChannel(_logger, channel);

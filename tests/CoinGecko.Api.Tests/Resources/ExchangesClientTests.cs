@@ -165,7 +165,7 @@ public class ExchangesClientTests
         var sut = new ExchangesClient(http);
 
         var from = DateTimeOffset.UnixEpoch.AddSeconds(1713916800);
-        var to   = from.AddDays(7);
+        var to = from.AddDays(7);
         var r = await sut.GetVolumeChartRangeAsync("binance", from, to, TestContext.Current.CancellationToken);
         r.Count.ShouldBe(1);
         r[0].Timestamp.ShouldBe(DateTimeOffset.FromUnixTimeMilliseconds(1713916800000L));

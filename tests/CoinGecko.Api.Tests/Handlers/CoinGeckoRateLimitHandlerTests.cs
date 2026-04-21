@@ -35,7 +35,7 @@ public class CoinGeckoRateLimitHandlerTests
 
         var h = new CoinGeckoRateLimitHandler(
             new OptionsWrapper<CoinGeckoOptions>(new CoinGeckoOptions { RateLimit = RateLimitPolicy.Respect }))
-            { InnerHandler = stub };
+        { InnerHandler = stub };
 
         using var client = new HttpClient(h);
         var resp = await client.GetAsync("https://example.com/x", TestContext.Current.CancellationToken);
@@ -49,7 +49,7 @@ public class CoinGeckoRateLimitHandlerTests
         var stub = new StubHandler(RateLimited(7));
         var h = new CoinGeckoRateLimitHandler(
             new OptionsWrapper<CoinGeckoOptions>(new CoinGeckoOptions { RateLimit = RateLimitPolicy.Throw }))
-            { InnerHandler = stub };
+        { InnerHandler = stub };
 
         using var client = new HttpClient(h);
         var ex = await Should.ThrowAsync<CoinGeckoRateLimitException>(() => client.GetAsync("https://example.com/x", TestContext.Current.CancellationToken));
@@ -62,7 +62,7 @@ public class CoinGeckoRateLimitHandlerTests
         var stub = new StubHandler(RateLimited(1));
         var h = new CoinGeckoRateLimitHandler(
             new OptionsWrapper<CoinGeckoOptions>(new CoinGeckoOptions { RateLimit = RateLimitPolicy.Ignore }))
-            { InnerHandler = stub };
+        { InnerHandler = stub };
 
         using var client = new HttpClient(h);
         var resp = await client.GetAsync("https://example.com/x", TestContext.Current.CancellationToken);
@@ -75,7 +75,7 @@ public class CoinGeckoRateLimitHandlerTests
         var stub = new StubHandler(RateLimited(0));
         var h = new CoinGeckoRateLimitHandler(
             new OptionsWrapper<CoinGeckoOptions>(new CoinGeckoOptions { RateLimit = RateLimitPolicy.Respect }))
-            { InnerHandler = stub };
+        { InnerHandler = stub };
 
         using var client = new HttpClient(h);
         await Should.ThrowAsync<CoinGeckoRateLimitException>(() => client.GetAsync("https://example.com/x", TestContext.Current.CancellationToken));

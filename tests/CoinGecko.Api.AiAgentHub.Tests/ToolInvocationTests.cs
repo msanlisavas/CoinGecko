@@ -24,7 +24,9 @@ public class ToolInvocationTests
         {
             ["bitcoin"] = new Dictionary<string, decimal?>
             {
-                ["usd"] = 42000m, ["usd_24h_change"] = 1.23m, ["usd_market_cap"] = 800_000_000_000m,
+                ["usd"] = 42000m,
+                ["usd_24h_change"] = 1.23m,
+                ["usd_market_cap"] = 800_000_000_000m,
             },
         };
         simple.GetPriceAsync(Arg.Any<SimplePriceOptions>(), Arg.Any<CancellationToken>())

@@ -66,8 +66,7 @@ jobs:
       - name: Build
         run: dotnet build ${{ steps.resolve.outputs.project }} -c Release --no-restore
 
-      - name: Test solution
-        run: dotnet test CoinGecko.sln -c Release --no-build
+      # Tests run in ci.yml on every push and PR; release doesn't re-test.
 
       - name: Pack
         run: dotnet pack ${{ steps.resolve.outputs.project }} -c Release --no-build -o artifacts

@@ -1,6 +1,6 @@
 using CoinGecko.Api.WebSockets;
-using CoinGecko.Api.WebSockets.Ticks;
 using CoinGecko.Api.WebSockets.Tests.Infra;
+using CoinGecko.Api.WebSockets.Ticks;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CoinGecko.Api.WebSockets.Tests;
