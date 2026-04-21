@@ -1,7 +1,10 @@
+using CoinGecko.Api.Models;
+
 namespace CoinGecko.Api.Resources;
 
-/// <summary>Sub-client for CoinGecko's Search endpoints. Methods added in Phase 9.</summary>
+/// <summary>Sub-client for CoinGecko's Search endpoints.</summary>
 public interface ISearchClient
 {
-    // Methods added in Phase 9.
+    /// <summary>Calls <c>GET /search</c>. Returns coins, exchanges, categories, and NFTs matching the query.</summary>
+    Task<SearchResults> SearchAsync(string query, CancellationToken ct = default);
 }
