@@ -32,44 +32,58 @@ jobs:
             8.0.x
             9.0.x
 
-      - name: Resolve package from tag
+      - name: Resolve package + version from tag
         id: resolve
         shell: bash
         run: |
           TAG="${GITHUB_REF_NAME}"
+          # Parse semver from the tag: v<major>.<minor>.<patch>-<rest>
+          SEMVER=$(echo "$TAG" | sed -nE 's/^v([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/p')
+          if [ -z "$SEMVER" ]; then
+            echo "::error::Cannot parse semver from tag: $TAG"
+            exit 1
+          fi
           case "$TAG" in
             *-api|*-api-*)
-              echo "project=src/CoinGecko.Api/CoinGecko.Api.csproj" >> "$GITHUB_OUTPUT"
-              echo "package=CoinGecko.Api" >> "$GITHUB_OUTPUT"
+              PROJECT="src/CoinGecko.Api/CoinGecko.Api.csproj"
+              PACKAGE="CoinGecko.Api"
+              VERSION="$SEMVER"
               ;;
             *-preview-websockets|*-preview-websockets-*)
-              echo "project=src/CoinGecko.Api.WebSockets/CoinGecko.Api.WebSockets.csproj" >> "$GITHUB_OUTPUT"
-              echo "package=CoinGecko.Api.WebSockets" >> "$GITHUB_OUTPUT"
+              PROJECT="src/CoinGecko.Api.WebSockets/CoinGecko.Api.WebSockets.csproj"
+              PACKAGE="CoinGecko.Api.WebSockets"
+              VERSION="${SEMVER}-preview"
               ;;
             *-preview-aiagenthub|*-preview-aiagenthub-*)
-              echo "project=src/CoinGecko.Api.AiAgentHub/CoinGecko.Api.AiAgentHub.csproj" >> "$GITHUB_OUTPUT"
-              echo "package=CoinGecko.Api.AiAgentHub" >> "$GITHUB_OUTPUT"
+              PROJECT="src/CoinGecko.Api.AiAgentHub/CoinGecko.Api.AiAgentHub.csproj"
+              PACKAGE="CoinGecko.Api.AiAgentHub"
+              VERSION="${SEMVER}-preview"
               ;;
             *-preview-mcp|*-preview-mcp-*)
-              echo "project=src/CoinGecko.Api.AiAgentHub.Mcp/CoinGecko.Api.AiAgentHub.Mcp.csproj" >> "$GITHUB_OUTPUT"
-              echo "package=CoinGecko.Api.AiAgentHub.Mcp" >> "$GITHUB_OUTPUT"
+              PROJECT="src/CoinGecko.Api.AiAgentHub.Mcp/CoinGecko.Api.AiAgentHub.Mcp.csproj"
+              PACKAGE="CoinGecko.Api.AiAgentHub.Mcp"
+              VERSION="${SEMVER}-preview"
               ;;
             *)
               echo "::error::Unknown tag pattern: $TAG"
               exit 1
               ;;
           esac
+          echo "project=$PROJECT" >> "$GITHUB_OUTPUT"
+          echo "package=$PACKAGE" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved: package=$PACKAGE version=$VERSION project=$PROJECT"
 
       - name: Restore
         run: dotnet restore CoinGecko.sln
 
       - name: Build
-        run: dotnet build ${{ steps.resolve.outputs.project }} -c Release --no-restore
+        run: dotnet build ${{ steps.resolve.outputs.project }} -c Release --no-restore -p:Version=${{ steps.resolve.outputs.version }} -p:MinVerSkip=true
 
       # Tests run in ci.yml on every push and PR; release doesn't re-test.
 
       - name: Pack
-        run: dotnet pack ${{ steps.resolve.outputs.project }} -c Release --no-build -o artifacts
+        run: dotnet pack ${{ steps.resolve.outputs.project }} -c Release --no-build -o artifacts -p:Version=${{ steps.resolve.outputs.version }} -p:MinVerSkip=true
 
       - name: List artifacts
         run: ls -la artifacts/
