@@ -14,6 +14,11 @@ namespace CoinGecko.Api.Serialization;
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     Converters             = new[] { typeof(UnixSecondsConverter) })]
 [JsonSerializable(typeof(CoinGecko.Api.Models.PingResponse))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.TrendingResults))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCoinItem))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCoinData))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.TrendingNftItem))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCategoryItem))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource>))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource[]>))]
 [JsonSerializable(typeof(JsonApiResource))]
