@@ -43,6 +43,7 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(JsonApiResource[]))]
 [JsonSerializable(typeof(Dictionary<string, object?>))]
 [JsonSerializable(typeof(string[]))]
+[JsonSerializable(typeof(Dictionary<string, Dictionary<string, decimal?>>))]
 internal sealed partial class CoinGeckoJsonContext : JsonSerializerContext
 {
 }
