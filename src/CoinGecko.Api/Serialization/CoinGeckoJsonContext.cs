@@ -51,6 +51,13 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(CoinGecko.Api.Models.GlobalMarketCapPoint))]
 [JsonSerializable(typeof(CoinGecko.Api.Resources.GlobalClient.MarketCapChartEnvelope))]
 [JsonSerializable(typeof(CoinGecko.Api.Resources.GlobalClient.MarketCapChartData))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.Derivative))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.Derivative[]))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.DerivativeExchange))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.DerivativeExchange[]))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.DerivativeExchangeDetail))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.DerivativeExchangeListItem))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.DerivativeExchangeListItem[]))]
 internal sealed partial class CoinGeckoJsonContext : JsonSerializerContext
 {
 }
