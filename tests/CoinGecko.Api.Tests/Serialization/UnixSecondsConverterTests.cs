@@ -25,9 +25,31 @@ public class UnixSecondsConverterTests
     }
 
     [Fact]
-    public void Writes_as_integer_seconds()
+    public void Writes_as_iso8601_roundtrip()
     {
         var dt = DateTimeOffset.FromUnixTimeSeconds(1700000000);
-        JsonSerializer.Serialize(dt, Opts).ShouldBe("1700000000");
+        var json = JsonSerializer.Serialize(dt, Opts);
+        // Round-trip format "o" emits full precision with offset, e.g. "2023-11-14T22:13:20.0000000+00:00".
+        json.ShouldStartWith("\"");
+        json.ShouldEndWith("\"");
+        JsonSerializer.Deserialize<DateTimeOffset>(json, Opts).ShouldBe(dt);
+    }
+
+    [Fact]
+    public void Reads_iso8601_string_returned_by_coingecko()
+    {
+        var json = "\"2021-11-10T14:24:11.849Z\"";
+        var dt = JsonSerializer.Deserialize<DateTimeOffset>(json, Opts);
+        dt.Year.ShouldBe(2021);
+        dt.Month.ShouldBe(11);
+        dt.Day.ShouldBe(10);
+        dt.Hour.ShouldBe(14);
+    }
+
+    [Fact]
+    public void Reads_numeric_string_as_unix_seconds()
+    {
+        var dt = JsonSerializer.Deserialize<DateTimeOffset>("\"1700000000\"", Opts);
+        dt.ShouldBe(DateTimeOffset.FromUnixTimeSeconds(1700000000));
     }
 }

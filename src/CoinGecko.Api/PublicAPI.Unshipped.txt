@@ -1271,7 +1271,7 @@ CoinGecko.Api.Models.PriceChangeWindow.ThirtyDays = 4 -> CoinGecko.Api.Models.Pr
 CoinGecko.Api.Models.PriceChangeWindow.TwentyFourHours = 1 -> CoinGecko.Api.Models.PriceChangeWindow
 CoinGecko.Api.Models.PriceChangeWindow.TwoHundredDays = 5 -> CoinGecko.Api.Models.PriceChangeWindow
 CoinGecko.Api.Models.SearchCategoryHit
-CoinGecko.Api.Models.SearchCategoryHit.Id.get -> long?
+CoinGecko.Api.Models.SearchCategoryHit.Id.get -> string?
 CoinGecko.Api.Models.SearchCategoryHit.Id.init -> void
 CoinGecko.Api.Models.SearchCategoryHit.Name.get -> string?
 CoinGecko.Api.Models.SearchCategoryHit.Name.init -> void

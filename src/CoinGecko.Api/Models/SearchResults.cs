@@ -65,8 +65,8 @@ public sealed class SearchExchangeHit
 /// <summary>Category hit in search results.</summary>
 public sealed class SearchCategoryHit
 {
-    /// <summary>Numeric id.</summary>
-    [JsonPropertyName("id")] public long? Id { get; init; }
+    /// <summary>Category id. CoinGecko returns a slug string here (e.g. <c>"artificial-intelligence"</c>), not a numeric id.</summary>
+    [JsonPropertyName("id")] public string? Id { get; init; }
 
     /// <summary>Display name.</summary>
     [JsonPropertyName("name")] public string? Name { get; init; }
