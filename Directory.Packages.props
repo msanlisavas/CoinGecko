@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup Label="Runtime">
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Options" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="9.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.15" />
   </ItemGroup>
 
   <ItemGroup Label="Build-time only (not packed)">
@@ -28,6 +28,12 @@
     <PackageVersion Include="WireMock.Net" Version="1.6.0" />
     <PackageVersion Include="Verify.Xunit" Version="26.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+  </ItemGroup>
+
+
+  <ItemGroup Label="Blazor WASM sample">
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.15" />
   </ItemGroup>
 
 </Project>
