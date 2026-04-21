@@ -1218,6 +1218,12 @@ public abstract class CoinGeckoException : Exception
     /// <summary>Correlation id shared with <c>ActivitySource</c> and <c>ILogger</c>.</summary>
     public Guid RequestId { get; }
 
+    /// <summary>Initializes a new <see cref="CoinGeckoException"/>.</summary>
+    /// <param name="message">Human-readable description of the failure.</param>
+    /// <param name="statusCode">HTTP status of the response, or null if pre-HTTP.</param>
+    /// <param name="rawBody">Response body (truncated to 16 KiB).</param>
+    /// <param name="requestId">Correlation id from the telemetry / logging pipeline.</param>
+    /// <param name="inner">Optional inner exception.</param>
     protected CoinGeckoException(
         string message,
         HttpStatusCode? statusCode,
@@ -1253,6 +1259,7 @@ public sealed class CoinGeckoRateLimitException(TimeSpan? retryAfter, string? ra
         rawBody,
         requestId)
 {
+    /// <summary>Server-advised delay before retrying, parsed from the <c>Retry-After</c> header.</summary>
     public TimeSpan? RetryAfter { get; } = retryAfter;
 }
 ```
@@ -1270,7 +1277,10 @@ public sealed class CoinGeckoPlanException(CoinGeckoPlan required, CoinGeckoPlan
         rawBody: null,
         requestId: Guid.Empty)
 {
+    /// <summary>Minimum plan tier required for the endpoint.</summary>
     public CoinGeckoPlan RequiredPlan { get; } = required;
+
+    /// <summary>Plan tier the caller is currently configured with.</summary>
     public CoinGeckoPlan ActualPlan { get; } = actual;
 }
 ```
