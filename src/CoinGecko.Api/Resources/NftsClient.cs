@@ -110,9 +110,9 @@ internal sealed class NftsClient(HttpClient http) : INftsClient
     private static NftMarketChartPoint[] MergeMarketChart(NftMarketChartRaw raw)
     {
         var native = raw.FloorPriceNative;
-        var usd    = raw.FloorPriceUsd;
-        var cap    = raw.MarketCapNative;
-        var vol    = raw.H24VolumeNative;
+        var usd = raw.FloorPriceUsd;
+        var cap = raw.MarketCapNative;
+        var vol = raw.H24VolumeNative;
 
         var len = native?.Length ?? usd?.Length ?? cap?.Length ?? vol?.Length ?? 0;
         var result = new NftMarketChartPoint[len];
@@ -121,11 +121,11 @@ internal sealed class NftsClient(HttpClient http) : INftsClient
             var ms = (long)(native?[i]?[0] ?? usd?[i]?[0] ?? cap?[i]?[0] ?? vol?[i]?[0] ?? 0m);
             result[i] = new NftMarketChartPoint
             {
-                Timestamp        = DateTimeOffset.FromUnixTimeMilliseconds(ms),
+                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(ms),
                 FloorPriceNative = native?[i]?[1],
-                FloorPriceUsd    = usd?[i]?[1],
-                MarketCapNative  = cap?[i]?[1],
-                Volume24hNative  = vol?[i]?[1],
+                FloorPriceUsd = usd?[i]?[1],
+                MarketCapNative = cap?[i]?[1],
+                Volume24hNative = vol?[i]?[1],
             };
         }
         return result;
@@ -134,8 +134,8 @@ internal sealed class NftsClient(HttpClient http) : INftsClient
 
 internal sealed class NftMarketChartRaw
 {
-    [JsonPropertyName("floor_price_usd")]    public decimal?[][]? FloorPriceUsd { get; init; }
+    [JsonPropertyName("floor_price_usd")] public decimal?[][]? FloorPriceUsd { get; init; }
     [JsonPropertyName("floor_price_native")] public decimal?[][]? FloorPriceNative { get; init; }
-    [JsonPropertyName("market_cap_native")]  public decimal?[][]? MarketCapNative { get; init; }
-    [JsonPropertyName("h24_volume_native")]  public decimal?[][]? H24VolumeNative { get; init; }
+    [JsonPropertyName("market_cap_native")] public decimal?[][]? MarketCapNative { get; init; }
+    [JsonPropertyName("h24_volume_native")] public decimal?[][]? H24VolumeNative { get; init; }
 }

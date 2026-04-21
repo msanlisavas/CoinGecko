@@ -66,3 +66,9 @@ __pycache__/
 
 ## Claude Code local session files (should never be committed)
 .claude/settings.local.json
+
+## ASP.NET Core launch settings (test projects auto-generate these)
+**/Properties/launchSettings.json
+
+## Transient bash.exe crash dumps (Git for Windows)
+bash.exe.stackdump

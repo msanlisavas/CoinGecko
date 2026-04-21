@@ -10,10 +10,10 @@ namespace CoinGecko.Api.Serialization;
 /// <c>[JsonSerializable(typeof(NewDto))]</c> entry each. AOT- and trim-safe.
 /// </summary>
 [JsonSourceGenerationOptions(
-    PropertyNamingPolicy   = JsonKnownNamingPolicy.SnakeCaseLower,
-    NumberHandling         = JsonNumberHandling.AllowReadingFromString,
+    PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower,
+    NumberHandling = JsonNumberHandling.AllowReadingFromString,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-    Converters             = new[] { typeof(UnixSecondsConverter), typeof(TimestampedValueConverter), typeof(CoinOhlcConverter), typeof(SupplyPointConverter) })]
+    Converters = new[] { typeof(UnixSecondsConverter), typeof(TimestampedValueConverter), typeof(CoinOhlcConverter), typeof(SupplyPointConverter) })]
 [JsonSerializable(typeof(CoinGecko.Api.Models.PingResponse))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingResults))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCoinItem))]

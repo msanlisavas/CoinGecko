@@ -44,7 +44,7 @@ internal sealed class CoinGeckoAuthHandler(IOptions<CoinGeckoOptions> options) :
         }
 
         var headerName = _opts.Plan == CoinGeckoPlan.Demo ? "x-cg-demo-api-key" : "x-cg-pro-api-key";
-        var paramName  = _opts.Plan == CoinGeckoPlan.Demo ? "x_cg_demo_api_key" : "x_cg_pro_api_key";
+        var paramName = _opts.Plan == CoinGeckoPlan.Demo ? "x_cg_demo_api_key" : "x_cg_pro_api_key";
 
         if (_opts.AuthMode == AuthenticationMode.Header)
         {

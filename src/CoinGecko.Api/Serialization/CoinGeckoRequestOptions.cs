@@ -7,11 +7,11 @@ internal static class CoinGeckoRequestOptions
     public static readonly HttpRequestOptionsKey<ResponseEnvelope> Envelope = new("coingecko.envelope");
 
     /// <summary>Indicates the minimum plan required to call this endpoint.</summary>
-    public static readonly HttpRequestOptionsKey<CoinGeckoPlan?>   RequiredPlan = new("coingecko.required_plan");
+    public static readonly HttpRequestOptionsKey<CoinGeckoPlan?> RequiredPlan = new("coingecko.required_plan");
 
     /// <summary>Human-readable endpoint name used for logging and metrics.</summary>
-    public static readonly HttpRequestOptionsKey<string>           EndpointName = new("coingecko.endpoint");
+    public static readonly HttpRequestOptionsKey<string> EndpointName = new("coingecko.endpoint");
 
     /// <summary>Per-request correlation identifier.</summary>
-    public static readonly HttpRequestOptionsKey<Guid>             RequestId = new("coingecko.request_id");
+    public static readonly HttpRequestOptionsKey<Guid> RequestId = new("coingecko.request_id");
 }

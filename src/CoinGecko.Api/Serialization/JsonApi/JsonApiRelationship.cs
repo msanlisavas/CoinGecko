@@ -13,7 +13,7 @@ public sealed class JsonApiRelationship
 public sealed class JsonApiResourceRef
 {
     /// <summary>Gets or sets the unique identifier of the referenced resource.</summary>
-    [JsonPropertyName("id")]   public string? Id { get; set; }
+    [JsonPropertyName("id")] public string? Id { get; set; }
 
     /// <summary>Gets or sets the type of the referenced resource.</summary>
     [JsonPropertyName("type")] public string? Type { get; set; }

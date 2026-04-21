@@ -69,6 +69,6 @@ internal sealed class GlobalClient(HttpClient http) : IGlobalClient
     internal sealed class MarketCapChartData
     {
         [JsonPropertyName("market_cap")] public decimal[][]? MarketCap { get; init; }
-        [JsonPropertyName("volume")]     public decimal[][]? Volume { get; init; }
+        [JsonPropertyName("volume")] public decimal[][]? Volume { get; init; }
     }
 }
