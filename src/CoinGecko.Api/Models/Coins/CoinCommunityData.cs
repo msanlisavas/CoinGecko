@@ -15,8 +15,8 @@ public sealed class CoinCommunityData
     [JsonPropertyName("reddit_average_comments_48h")] public decimal? RedditAverageComments48h { get; init; }
     /// <summary>Reddit subscribers.</summary>
     [JsonPropertyName("reddit_subscribers")] public long? RedditSubscribers { get; init; }
-    /// <summary>Reddit accounts active in the past 48h.</summary>
-    [JsonPropertyName("reddit_accounts_active_48h")] public long? RedditAccountsActive48h { get; init; }
+    /// <summary>Reddit accounts active in the past 48h. (CoinGecko returns this as a float, e.g. <c>0.0</c>.)</summary>
+    [JsonPropertyName("reddit_accounts_active_48h")] public decimal? RedditAccountsActive48h { get; init; }
     /// <summary>Telegram channel user count.</summary>
     [JsonPropertyName("telegram_channel_user_count")] public long? TelegramChannelUserCount { get; init; }
 }

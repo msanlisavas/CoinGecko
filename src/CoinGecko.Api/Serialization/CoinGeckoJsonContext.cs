@@ -13,7 +13,7 @@ namespace CoinGecko.Api.Serialization;
     PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower,
     NumberHandling = JsonNumberHandling.AllowReadingFromString,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-    Converters = new[] { typeof(UnixSecondsConverter), typeof(TimestampedValueConverter), typeof(CoinOhlcConverter), typeof(SupplyPointConverter) })]
+    Converters = new[] { typeof(UnixSecondsConverter), typeof(TimestampedValueConverter), typeof(CoinOhlcConverter), typeof(SupplyPointConverter), typeof(TolerantDecimalConverter) })]
 [JsonSerializable(typeof(CoinGecko.Api.Models.PingResponse))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingResults))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCoinItem))]

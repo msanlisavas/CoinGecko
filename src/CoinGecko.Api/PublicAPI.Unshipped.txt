@@ -197,7 +197,7 @@ CoinGecko.Api.Models.CoinCommunityData
 CoinGecko.Api.Models.CoinCommunityData.CoinCommunityData() -> void
 CoinGecko.Api.Models.CoinCommunityData.FacebookLikes.get -> long?
 CoinGecko.Api.Models.CoinCommunityData.FacebookLikes.init -> void
-CoinGecko.Api.Models.CoinCommunityData.RedditAccountsActive48h.get -> long?
+CoinGecko.Api.Models.CoinCommunityData.RedditAccountsActive48h.get -> decimal?
 CoinGecko.Api.Models.CoinCommunityData.RedditAccountsActive48h.init -> void
 CoinGecko.Api.Models.CoinCommunityData.RedditAverageComments48h.get -> decimal?
 CoinGecko.Api.Models.CoinCommunityData.RedditAverageComments48h.init -> void
@@ -831,7 +831,7 @@ CoinGecko.Api.Models.Nft.NativeCurrency.init -> void
 CoinGecko.Api.Models.Nft.NativeCurrencySymbol.get -> string?
 CoinGecko.Api.Models.Nft.NativeCurrencySymbol.init -> void
 CoinGecko.Api.Models.Nft.Nft() -> void
-CoinGecko.Api.Models.Nft.NumberOfUniqueAddresses.get -> long?
+CoinGecko.Api.Models.Nft.NumberOfUniqueAddresses.get -> decimal?
 CoinGecko.Api.Models.Nft.NumberOfUniqueAddresses.init -> void
 CoinGecko.Api.Models.Nft.NumberOfUniqueAddresses24hPercentageChange.get -> decimal?
 CoinGecko.Api.Models.Nft.NumberOfUniqueAddresses24hPercentageChange.init -> void
@@ -1690,6 +1690,8 @@ CoinGecko.Api.Serialization.SupplyPointConverter
 CoinGecko.Api.Serialization.SupplyPointConverter.SupplyPointConverter() -> void
 CoinGecko.Api.Serialization.TimestampedValueConverter
 CoinGecko.Api.Serialization.TimestampedValueConverter.TimestampedValueConverter() -> void
+CoinGecko.Api.Serialization.TolerantDecimalConverter
+CoinGecko.Api.Serialization.TolerantDecimalConverter.TolerantDecimalConverter() -> void
 CoinGecko.Api.Serialization.UnixSecondsConverter
 CoinGecko.Api.Serialization.UnixSecondsConverter.UnixSecondsConverter() -> void
 CoinGecko.Api.ServiceCollectionExtensions
@@ -1699,6 +1701,8 @@ override CoinGecko.Api.Serialization.SupplyPointConverter.Read(ref System.Text.J
 override CoinGecko.Api.Serialization.SupplyPointConverter.Write(System.Text.Json.Utf8JsonWriter! writer, CoinGecko.Api.Models.SupplyPoint! value, System.Text.Json.JsonSerializerOptions! options) -> void
 override CoinGecko.Api.Serialization.TimestampedValueConverter.Read(ref System.Text.Json.Utf8JsonReader reader, System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> CoinGecko.Api.Models.TimestampedValue!
 override CoinGecko.Api.Serialization.TimestampedValueConverter.Write(System.Text.Json.Utf8JsonWriter! writer, CoinGecko.Api.Models.TimestampedValue! value, System.Text.Json.JsonSerializerOptions! options) -> void
+override CoinGecko.Api.Serialization.TolerantDecimalConverter.Read(ref System.Text.Json.Utf8JsonReader reader, System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> decimal?
+override CoinGecko.Api.Serialization.TolerantDecimalConverter.Write(System.Text.Json.Utf8JsonWriter! writer, decimal? value, System.Text.Json.JsonSerializerOptions! options) -> void
 override CoinGecko.Api.Serialization.UnixSecondsConverter.Read(ref System.Text.Json.Utf8JsonReader reader, System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> System.DateTimeOffset
 override CoinGecko.Api.Serialization.UnixSecondsConverter.Write(System.Text.Json.Utf8JsonWriter! writer, System.DateTimeOffset value, System.Text.Json.JsonSerializerOptions! options) -> void
 static CoinGecko.Api.CoinGeckoClientFactory.Create(string! apiKey, CoinGecko.Api.CoinGeckoPlan plan = CoinGecko.Api.CoinGeckoPlan.Demo, System.Action<CoinGecko.Api.CoinGeckoOptions!>? customize = null) -> CoinGecko.Api.CoinGeckoClientScope!

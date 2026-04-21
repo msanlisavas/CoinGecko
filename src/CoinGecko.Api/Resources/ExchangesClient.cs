@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Net.Http.Json;
+using System.Text.Json;
 using CoinGecko.Api.Internal;
 using CoinGecko.Api.Models;
 using CoinGecko.Api.Serialization;
@@ -67,9 +69,7 @@ internal sealed class ExchangesClient(HttpClient http) : IExchangesClient
         using var req = new HttpRequestMessage(HttpMethod.Get, path + qs.ToString());
         using var resp = await _http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
         resp.EnsureSuccessStatusCode();
-        var raw = await resp.Content.ReadFromJsonAsync(CoinGeckoJsonContext.Default.StringArrayArray, ct).ConfigureAwait(false)
-            ?? throw new InvalidOperationException($"CoinGecko returned empty body for /exchanges/{id}/volume_chart.");
-        return ProjectVolumeChart(raw);
+        return await ParseVolumeChartAsync(resp, ct).ConfigureAwait(false);
     }
 
     public async Task<IReadOnlyList<ExchangeVolumeChartPoint>> GetVolumeChartRangeAsync(
@@ -83,9 +83,7 @@ internal sealed class ExchangesClient(HttpClient http) : IExchangesClient
         req.Options.Set(CoinGeckoRequestOptions.RequiredPlan, CoinGeckoPlan.Basic);
         using var resp = await _http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
         resp.EnsureSuccessStatusCode();
-        var raw = await resp.Content.ReadFromJsonAsync(CoinGeckoJsonContext.Default.StringArrayArray, ct).ConfigureAwait(false)
-            ?? throw new InvalidOperationException($"CoinGecko returned empty body for /exchanges/{id}/volume_chart/range.");
-        return ProjectVolumeChart(raw);
+        return await ParseVolumeChartAsync(resp, ct).ConfigureAwait(false);
     }
 
     public IAsyncEnumerable<Exchange> EnumerateAsync(
@@ -114,19 +112,65 @@ internal sealed class ExchangesClient(HttpClient http) : IExchangesClient
             ct: ct);
     }
 
-    private static ExchangeVolumeChartPoint[] ProjectVolumeChart(string[][] raw)
+    /// <summary>
+    /// The volume-chart endpoints return a JSON array of two-element arrays with mixed types:
+    /// <c>[timestamp_ms_as_number, volume_in_btc_as_string]</c>. We read via <see cref="JsonDocument"/>
+    /// to sidestep strict type-matching (previously <c>string[][]</c>, which fails on the numeric timestamp).
+    /// </summary>
+    private static async Task<IReadOnlyList<ExchangeVolumeChartPoint>> ParseVolumeChartAsync(
+        HttpResponseMessage resp, CancellationToken ct)
     {
-        var result = new ExchangeVolumeChartPoint[raw.Length];
-        for (var i = 0; i < raw.Length; i++)
+        using var stream = await resp.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
+        using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: ct).ConfigureAwait(false);
+        if (doc.RootElement.ValueKind != JsonValueKind.Array)
         {
-            var row = raw[i];
-            var ms = long.Parse(row[0], System.Globalization.CultureInfo.InvariantCulture);
-            var vol = decimal.Parse(row[1], System.Globalization.CultureInfo.InvariantCulture);
-            result[i] = new ExchangeVolumeChartPoint
+            return Array.Empty<ExchangeVolumeChartPoint>();
+        }
+
+        var result = new List<ExchangeVolumeChartPoint>();
+        foreach (var row in doc.RootElement.EnumerateArray())
+        {
+            if (row.ValueKind != JsonValueKind.Array || row.GetArrayLength() < 2)
+            {
+                continue;
+            }
+
+            var tsEl = row[0];
+            var volEl = row[1];
+
+            long ms;
+            if (tsEl.ValueKind == JsonValueKind.Number && tsEl.TryGetInt64(out var tsNum))
+            {
+                ms = tsNum;
+            }
+            else if (tsEl.ValueKind == JsonValueKind.String && long.TryParse(tsEl.GetString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var tsStr))
+            {
+                ms = tsStr;
+            }
+            else
+            {
+                continue;
+            }
+
+            decimal vol;
+            if (volEl.ValueKind == JsonValueKind.Number && volEl.TryGetDecimal(out var volNum))
+            {
+                vol = volNum;
+            }
+            else if (volEl.ValueKind == JsonValueKind.String && decimal.TryParse(volEl.GetString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var volStr))
+            {
+                vol = volStr;
+            }
+            else
+            {
+                continue;
+            }
+
+            result.Add(new ExchangeVolumeChartPoint
             {
                 Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(ms),
                 BtcVolume = vol,
-            };
+            });
         }
         return result;
     }

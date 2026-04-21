@@ -47,7 +47,7 @@ public class Nft
     /// <summary>Total supply.</summary>
     [JsonPropertyName("total_supply")] public decimal? TotalSupply { get; init; }
     /// <summary>Holders count.</summary>
-    [JsonPropertyName("number_of_unique_addresses")] public long? NumberOfUniqueAddresses { get; init; }
+    [JsonPropertyName("number_of_unique_addresses")] public decimal? NumberOfUniqueAddresses { get; init; }
     /// <summary>24h change in holder count.</summary>
     [JsonPropertyName("number_of_unique_addresses_24h_percentage_change")] public decimal? NumberOfUniqueAddresses24hPercentageChange { get; init; }
     /// <summary>Image set.</summary>

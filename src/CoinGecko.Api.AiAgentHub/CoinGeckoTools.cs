@@ -165,7 +165,7 @@ public static class CoinGeckoTools
             FloorPriceNative: n.FloorPrice is not null && n.FloorPrice.TryGetValue("native_currency", out var f) ? f : null,
             FloorPriceUsd: n.FloorPrice is not null && n.FloorPrice.TryGetValue("usd", out var fu) ? fu : null,
             MarketCapUsd: n.MarketCap is not null && n.MarketCap.TryGetValue("usd", out var mu) ? mu : null,
-            Holders: n.NumberOfUniqueAddresses);
+            Holders: n.NumberOfUniqueAddresses is { } count ? (long)count : null);
     }
 
     /// <summary>List derivative tickers.</summary>

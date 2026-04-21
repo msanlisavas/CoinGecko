@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
         }
 
         services.AddTransient<CoinGeckoTelemetryHandler>();
+        services.AddTransient<CoinGeckoErrorHandler>();
         services.AddTransient<CoinGeckoAuthHandler>();
         services.AddTransient<CoinGeckoPlanHandler>();
         services.AddTransient<CoinGeckoRateLimitHandler>();
@@ -36,7 +37,13 @@ public static class ServiceCollectionExtensions
                 ? "https://api.coingecko.com/api/v3/"
                 : "https://pro-api.coingecko.com/api/v3/");
         })
+        // Handler order (outer → inner):
+        //   Telemetry → Error → Auth → Plan → RateLimit → Retry → Primary
+        // Error sits above RateLimit/Retry so transient 5xx responses are still retried
+        // (as status codes) before becoming typed exceptions. 4xx responses reach Error
+        // and are translated to the appropriate CoinGeckoException subtype.
         .AddHttpMessageHandler<CoinGeckoTelemetryHandler>()
+        .AddHttpMessageHandler<CoinGeckoErrorHandler>()
         .AddHttpMessageHandler<CoinGeckoAuthHandler>()
         .AddHttpMessageHandler<CoinGeckoPlanHandler>()
         .AddHttpMessageHandler<CoinGeckoRateLimitHandler>()
