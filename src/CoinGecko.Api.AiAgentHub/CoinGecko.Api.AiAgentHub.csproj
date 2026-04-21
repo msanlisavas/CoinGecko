@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+    <RootNamespace>CoinGecko.Api.AiAgentHub</RootNamespace>
+    <AssemblyName>CoinGecko.Api.AiAgentHub</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>CoinGecko.Api.AiAgentHub</PackageId>
+    <Description>Microsoft.Extensions.AI function tools backed by CoinGecko's REST API. Drop CoinGecko capabilities into any IChatClient-compatible agent (OpenAI, Anthropic, Azure OpenAI, Ollama, Gemini, Bedrock, …) in one line.</Description>
+    <PackageTags>coingecko crypto cryptocurrency ai agent llm tools function-calling microsoft-extensions-ai openai anthropic</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoinGecko.Api\CoinGecko.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup Label="Build-only">
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.WebSockets.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.Samples.StreamConsole", "samples\CoinGecko.Api.Samples.StreamConsole\CoinGecko.Api.Samples.StreamConsole.csproj", "{DE2A0471-F197-4C5A-B224-F685BB993C17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.AiAgentHub", "src\CoinGecko.Api.AiAgentHub\CoinGecko.Api.AiAgentHub.csproj", "{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,18 @@ Global
 		{DE2A0471-F197-4C5A-B224-F685BB993C17}.Release|x64.Build.0 = Release|Any CPU
 		{DE2A0471-F197-4C5A-B224-F685BB993C17}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE2A0471-F197-4C5A-B224-F685BB993C17}.Release|x86.Build.0 = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|x64.Build.0 = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Debug|x86.Build.0 = Debug|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|x64.ActiveCfg = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|x64.Build.0 = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|x86.ActiveCfg = Release|Any CPU
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,5 +158,6 @@ Global
 		{AF739C5F-27D8-42AA-A0E8-85109335C12B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{3AB778ED-F56F-4AD2-839C-E91DEF2A0466} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{DE2A0471-F197-4C5A-B224-F685BB993C17} = {5D20AA90-6969-D8BD-9DCD-8634F4692FDA}
+		{E3191EC1-64EC-4C54-B177-BB7107BB0CC5} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
