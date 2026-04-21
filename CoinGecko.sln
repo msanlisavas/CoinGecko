@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.Samples.Agent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.AiAgentHub.Mcp", "src\CoinGecko.Api.AiAgentHub.Mcp\CoinGecko.Api.AiAgentHub.Mcp.csproj", "{BF1734D1-1022-4A31-A719-E1E802444C34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinGecko.Api.AiAgentHub.Mcp.Tests", "tests\CoinGecko.Api.AiAgentHub.Mcp.Tests\CoinGecko.Api.AiAgentHub.Mcp.Tests.csproj", "{B4ADC8E1-BD91-49F6-9133-8800D2029817}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +189,18 @@ Global
 		{BF1734D1-1022-4A31-A719-E1E802444C34}.Release|x64.Build.0 = Release|Any CPU
 		{BF1734D1-1022-4A31-A719-E1E802444C34}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF1734D1-1022-4A31-A719-E1E802444C34}.Release|x86.Build.0 = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|x64.Build.0 = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Debug|x86.Build.0 = Debug|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|x64.ActiveCfg = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|x64.Build.0 = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,5 +218,6 @@ Global
 		{D95FCC67-C72B-4509-8600-95915E8950B3} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{A903A532-7152-4795-BBC1-7747E8B6A3B0} = {5D20AA90-6969-D8BD-9DCD-8634F4692FDA}
 		{BF1734D1-1022-4A31-A719-E1E802444C34} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{B4ADC8E1-BD91-49F6-9133-8800D2029817} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
