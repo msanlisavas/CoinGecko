@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using CoinGecko.Api.Models.Onchain;
 using CoinGecko.Api.Serialization.JsonApi;
 
 namespace CoinGecko.Api.Serialization;
@@ -116,6 +117,34 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(CoinGecko.Api.Models.CoinMarketsOptions))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.CoinDetailOptions))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.CoinTickersOptions))]
+[JsonSerializable(typeof(JsonApiResponse<Network[]>))]
+[JsonSerializable(typeof(JsonApiResponse<Network>))]
+[JsonSerializable(typeof(JsonApiResponse<Dex[]>))]
+[JsonSerializable(typeof(JsonApiResponse<Pool>))]
+[JsonSerializable(typeof(JsonApiResponse<Pool[]>))]
+[JsonSerializable(typeof(JsonApiResponse<OnchainTrade[]>))]
+[JsonSerializable(typeof(JsonApiResponse<OnchainOhlcvResource>))]
+[JsonSerializable(typeof(JsonApiResponse<PoolInfo>))]
+[JsonSerializable(typeof(Network))]
+[JsonSerializable(typeof(Network[]))]
+[JsonSerializable(typeof(NetworkAttributes))]
+[JsonSerializable(typeof(Dex))]
+[JsonSerializable(typeof(Dex[]))]
+[JsonSerializable(typeof(DexAttributes))]
+[JsonSerializable(typeof(Pool))]
+[JsonSerializable(typeof(Pool[]))]
+[JsonSerializable(typeof(PoolAttributes))]
+[JsonSerializable(typeof(PoolRelationships))]
+[JsonSerializable(typeof(OnchainTrade))]
+[JsonSerializable(typeof(OnchainTrade[]))]
+[JsonSerializable(typeof(OnchainTradeAttributes))]
+[JsonSerializable(typeof(OnchainOhlcvResource))]
+[JsonSerializable(typeof(OnchainOhlcvAttributes))]
+[JsonSerializable(typeof(PoolInfo))]
+[JsonSerializable(typeof(OnchainTokenMetadata))]
+[JsonSerializable(typeof(IReadOnlyDictionary<string, decimal?>))]
+[JsonSerializable(typeof(IReadOnlyDictionary<string, long?>))]
+[JsonSerializable(typeof(IReadOnlyDictionary<string, IReadOnlyDictionary<string, long?>>))]
 internal sealed partial class CoinGeckoJsonContext : JsonSerializerContext
 {
 }
