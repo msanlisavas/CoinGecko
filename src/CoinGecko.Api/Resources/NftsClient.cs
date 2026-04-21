@@ -87,6 +87,26 @@ internal sealed class NftsClient(HttpClient http) : INftsClient
             ?? throw new InvalidOperationException($"CoinGecko returned empty body for /nfts/{id}/tickers.");
     }
 
+    public IAsyncEnumerable<NftListItem> EnumerateListAsync(int perPage = 100, CancellationToken ct = default)
+    {
+        return PaginationHelper.EnumerateAsync<NftListItem>(
+            fetchPage: async (page, c) =>
+                await GetListAsync(perPage, page, c).ConfigureAwait(false),
+            perPage: perPage,
+            ct: ct);
+    }
+
+    public IAsyncEnumerable<NftMarket> EnumerateMarketsAsync(
+        NftMarketsOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new NftMarketsOptions();
+        return PaginationHelper.EnumerateAsync<NftMarket>(
+            fetchPage: async (page, c) =>
+                await GetMarketsAsync(baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: baseOptions.PerPage,
+            ct: ct);
+    }
+
     private static NftMarketChartPoint[] MergeMarketChart(NftMarketChartRaw raw)
     {
         var native = raw.FloorPriceNative;

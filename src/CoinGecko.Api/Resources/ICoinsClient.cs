@@ -163,4 +163,18 @@ public interface ICoinsClient
     /// <param name="ct">Cancellation token.</param>
     [RequiresPlan(CoinGeckoPlan.Basic)]
     Task<IReadOnlyList<NewCoinListing>> GetNewListingsAsync(CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetMarketsAsync"/> yielding every <see cref="CoinMarket"/> across all pages.</summary>
+    /// <param name="vsCurrency">The target currency (e.g. <c>"usd"</c>).</param>
+    /// <param name="options">Additional query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<CoinMarket> EnumerateMarketsAsync(
+        string vsCurrency, CoinMarketsOptions? options = null, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetTickersAsync"/> yielding every <see cref="Ticker"/> across all pages.</summary>
+    /// <param name="id">CoinGecko coin id.</param>
+    /// <param name="options">Options for filtering and pagination; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Ticker> EnumerateTickersAsync(
+        string id, CoinTickersOptions? options = null, CancellationToken ct = default);
 }

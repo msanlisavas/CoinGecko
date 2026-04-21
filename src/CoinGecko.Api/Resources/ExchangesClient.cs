@@ -88,6 +88,32 @@ internal sealed class ExchangesClient(HttpClient http) : IExchangesClient
         return ProjectVolumeChart(raw);
     }
 
+    public IAsyncEnumerable<Exchange> EnumerateAsync(
+        ExchangesOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new ExchangesOptions();
+        return PaginationHelper.EnumerateAsync<Exchange>(
+            fetchPage: async (page, c) =>
+                await GetAsync(baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: baseOptions.PerPage,
+            ct: ct);
+    }
+
+    public IAsyncEnumerable<Ticker> EnumerateTickersAsync(
+        string id, ExchangeTickersOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new ExchangeTickersOptions();
+        // Exchange tickers endpoint has no PerPage param; fixed 100/page.
+        return PaginationHelper.EnumerateAsync<Ticker>(
+            fetchPage: async (page, c) =>
+            {
+                var envelope = await GetTickersAsync(id, baseOptions with { Page = page }, c).ConfigureAwait(false);
+                return envelope.Tickers;
+            },
+            perPage: 100,
+            ct: ct);
+    }
+
     private static ExchangeVolumeChartPoint[] ProjectVolumeChart(string[][] raw)
     {
         var result = new ExchangeVolumeChartPoint[raw.Length];

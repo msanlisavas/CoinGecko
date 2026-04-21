@@ -24,4 +24,17 @@ public interface IExchangesClient
     [RequiresPlan(CoinGeckoPlan.Basic)]
     Task<IReadOnlyList<ExchangeVolumeChartPoint>> GetVolumeChartRangeAsync(
         string id, DateTimeOffset from, DateTimeOffset to, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetAsync"/> yielding every <see cref="Exchange"/> across all pages.</summary>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Exchange> EnumerateAsync(
+        ExchangesOptions? options = null, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetTickersAsync"/> yielding every <see cref="Ticker"/> across all pages.</summary>
+    /// <param name="id">Exchange id.</param>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Ticker> EnumerateTickersAsync(
+        string id, ExchangeTickersOptions? options = null, CancellationToken ct = default);
 }

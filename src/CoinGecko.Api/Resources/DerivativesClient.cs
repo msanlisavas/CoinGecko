@@ -53,4 +53,15 @@ internal sealed class DerivativesClient(HttpClient http) : IDerivativesClient
         return await resp.Content.ReadFromJsonAsync(CoinGeckoJsonContext.Default.DerivativeExchangeListItemArray, ct).ConfigureAwait(false)
             ?? throw new InvalidOperationException("CoinGecko returned empty body for /derivatives/exchanges/list.");
     }
+
+    public IAsyncEnumerable<DerivativeExchange> EnumerateExchangesAsync(
+        DerivativeExchangesOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new DerivativeExchangesOptions();
+        return PaginationHelper.EnumerateAsync<DerivativeExchange>(
+            fetchPage: async (page, c) =>
+                await GetExchangesAsync(baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: baseOptions.PerPage,
+            ct: ct);
+    }
 }

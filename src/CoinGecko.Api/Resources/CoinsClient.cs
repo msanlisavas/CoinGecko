@@ -296,4 +296,30 @@ internal sealed class CoinsClient(HttpClient http) : ICoinsClient
         return await resp.Content.ReadFromJsonAsync(CoinGeckoJsonContext.Default.NewCoinListingArray, ct).ConfigureAwait(false)
             ?? throw new InvalidOperationException("CoinGecko returned empty body for /coins/list/new.");
     }
+
+    public IAsyncEnumerable<CoinMarket> EnumerateMarketsAsync(
+        string vsCurrency, CoinMarketsOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new CoinMarketsOptions();
+        return PaginationHelper.EnumerateAsync<CoinMarket>(
+            fetchPage: async (page, c) =>
+                await GetMarketsAsync(vsCurrency, baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: baseOptions.PerPage,
+            ct: ct);
+    }
+
+    public IAsyncEnumerable<Ticker> EnumerateTickersAsync(
+        string id, CoinTickersOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new CoinTickersOptions();
+        // CoinGecko tickers endpoint has no PerPage param; fixed 100/page.
+        return PaginationHelper.EnumerateAsync<Ticker>(
+            fetchPage: async (page, c) =>
+            {
+                var envelope = await GetTickersAsync(id, baseOptions with { Page = page }, c).ConfigureAwait(false);
+                return envelope.Tickers;
+            },
+            perPage: 100,
+            ct: ct);
+    }
 }

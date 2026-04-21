@@ -18,4 +18,10 @@ public interface IDerivativesClient
 
     /// <summary>ID map of derivatives exchanges.</summary>
     Task<IReadOnlyList<DerivativeExchangeListItem>> GetExchangeListAsync(CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetExchangesAsync"/> yielding every <see cref="DerivativeExchange"/> across all pages.</summary>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<DerivativeExchange> EnumerateExchangesAsync(
+        DerivativeExchangesOptions? options = null, CancellationToken ct = default);
 }

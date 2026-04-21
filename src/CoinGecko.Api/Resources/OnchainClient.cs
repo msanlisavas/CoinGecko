@@ -401,4 +401,40 @@ internal sealed class OnchainClient(HttpClient http) : IOnchainClient
         resp.EnsureSuccessStatusCode();
         return await JsonApiUnwrap.ReadDataAsync(resp.Content, CoinGeckoJsonContext.Default.JsonApiResponsePoolArray, ct).ConfigureAwait(false);
     }
+
+    public IAsyncEnumerable<Pool> EnumerateTrendingPoolsAsync(
+        OnchainTrendingPoolsOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new OnchainTrendingPoolsOptions();
+        // GeckoTerminal returns 20 pools per page (fixed).
+        return PaginationHelper.EnumerateAsync<Pool>(
+            fetchPage: async (page, c) =>
+                (IReadOnlyList<Pool>)await GetTrendingPoolsAsync(baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: 20,
+            ct: ct);
+    }
+
+    public IAsyncEnumerable<Pool> EnumerateTopPoolsByNetworkAsync(
+        string network, OnchainPoolsListOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new OnchainPoolsListOptions();
+        // GeckoTerminal returns 20 pools per page (fixed).
+        return PaginationHelper.EnumerateAsync<Pool>(
+            fetchPage: async (page, c) =>
+                (IReadOnlyList<Pool>)await GetTopPoolsByNetworkAsync(network, baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: 20,
+            ct: ct);
+    }
+
+    public IAsyncEnumerable<Pool> EnumerateNewPoolsAsync(
+        OnchainPoolsListOptions? options = null, CancellationToken ct = default)
+    {
+        var baseOptions = options ?? new OnchainPoolsListOptions();
+        // GeckoTerminal returns 20 pools per page (fixed).
+        return PaginationHelper.EnumerateAsync<Pool>(
+            fetchPage: async (page, c) =>
+                (IReadOnlyList<Pool>)await GetNewPoolsAsync(baseOptions with { Page = page }, c).ConfigureAwait(false),
+            perPage: 20,
+            ct: ct);
+    }
 }

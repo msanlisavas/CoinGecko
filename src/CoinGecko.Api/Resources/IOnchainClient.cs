@@ -100,4 +100,23 @@ public interface IOnchainClient
     /// <summary>Returns pools for an onchain category. <c>GET /onchain/categories/{categoryId}/pools</c></summary>
     [RequiresPlan(CoinGeckoPlan.Basic)]
     Task<Pool[]> GetCategoryPoolsAsync(string categoryId, OnchainPoolsListOptions? options = null, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetTrendingPoolsAsync"/> yielding every <see cref="Pool"/> across all pages.</summary>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Pool> EnumerateTrendingPoolsAsync(
+        OnchainTrendingPoolsOptions? options = null, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetTopPoolsByNetworkAsync"/> yielding every <see cref="Pool"/> across all pages.</summary>
+    /// <param name="network">Blockchain network slug.</param>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Pool> EnumerateTopPoolsByNetworkAsync(
+        string network, OnchainPoolsListOptions? options = null, CancellationToken ct = default);
+
+    /// <summary>Auto-paginates <see cref="GetNewPoolsAsync"/> yielding every <see cref="Pool"/> across all pages.</summary>
+    /// <param name="options">Query options; <c>Page</c> is managed automatically.</param>
+    /// <param name="ct">Cancellation token.</param>
+    IAsyncEnumerable<Pool> EnumerateNewPoolsAsync(
+        OnchainPoolsListOptions? options = null, CancellationToken ct = default);
 }
