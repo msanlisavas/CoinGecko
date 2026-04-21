@@ -483,22 +483,15 @@ Expected entries include: `CoinGecko.Api.nuspec`, `lib/net9.0/CoinGecko.Api.dll`
 
 Open the `.nuspec` and verify: `id`, `description`, `authors=msanlisavas`, `license`, `projectUrl`, `repository`, `icon=icon.png`, `readme=README.md`, all populated.
 
-- [ ] **Step 3: Add `artifacts/` to `.gitignore`**
+- [ ] **Step 3: Verify `artifacts/` is gitignored**
 
-Append to `.gitignore`:
-
-```gitignore
-
-## Build artifacts / pack output
-artifacts/
-```
-
-- [ ] **Step 4: Commit**
+The initial `.gitignore` committed before Phase 0 already lists `artifacts/`. Confirm with:
 
 ```bash
-git add .gitignore
-git -c commit.gpgsign=false commit -m "build: gitignore artifacts/ and verify pack produces correct nupkg" --author="msanlisavas <muratsanlisavas@gmail.com>"
+grep -n '^artifacts/' .gitignore
 ```
+
+If it already matches, no `.gitignore` edit or commit is needed. Task 1.2 is a pure verification gate — **do not create an empty commit**.
 
 ---
 ## Phase 2 — Options, enums, and plan model
