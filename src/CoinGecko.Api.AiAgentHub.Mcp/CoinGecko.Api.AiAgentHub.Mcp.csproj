@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+    <RootNamespace>CoinGecko.Api.AiAgentHub.Mcp</RootNamespace>
+    <AssemblyName>CoinGecko.Api.AiAgentHub.Mcp</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <PackageId>CoinGecko.Api.AiAgentHub.Mcp</PackageId>
+    <Description>MCP (Model Context Protocol) client for CoinGecko's hosted MCP servers (mcp.api.coingecko.com + mcp.pro-api.coingecko.com). Returns IReadOnlyList&lt;AIFunction&gt; for drop-in use with any Microsoft.Extensions.AI IChatClient. Sibling of CoinGecko.Api.AiAgentHub — produces the same tool-list shape but fetched from CoinGecko's hosted MCP.</Description>
+    <PackageTags>coingecko crypto cryptocurrency mcp model-context-protocol ai agent llm tools microsoft-extensions-ai</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup Label="Build-only">
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
