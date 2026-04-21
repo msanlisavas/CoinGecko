@@ -36,6 +36,7 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(CoinGecko.Api.Models.TokenListItem))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.CompanyTreasury))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.Company))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.ApiKeyUsage))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource>))]
 [JsonSerializable(typeof(JsonApiResponse<JsonApiResource[]>))]
 [JsonSerializable(typeof(JsonApiResource))]
