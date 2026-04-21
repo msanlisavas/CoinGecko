@@ -1,0 +1,48 @@
+<Project>
+
+  <PropertyGroup Label="Language + nullability">
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Determinism + SourceLink">
+    <Deterministic>true</Deterministic>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild Condition=" '$(TF_BUILD)' == 'true' OR '$(GITHUB_ACTIONS)' == 'true' ">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Documentation">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- CS1591 (missing XML doc) only enforced in Release; keep dev fast. -->
+    <NoWarn Condition=" '$(Configuration)' == 'Debug' ">$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="AOT posture (libraries opt-in individually)">
+    <!-- IsAotCompatible is set per-library csproj, not here (so test projects don't drag it in). -->
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package metadata defaults (shared)">
+    <Authors>msanlisavas</Authors>
+    <Company>msanlisavas</Company>
+    <Product>CoinGecko.Api</Product>
+    <Copyright>© $([System.DateTime]::UtcNow.Year) msanlisavas</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/msanlisavas/CoinGecko</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/msanlisavas/CoinGecko</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>coingecko crypto cryptocurrency price api client</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(IsPackable)' == 'true' ">
+    <None Include="$(MSBuildThisFileDirectory)eng/icon.png" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+
+</Project>
