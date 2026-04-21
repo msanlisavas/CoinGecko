@@ -1,6 +1,6 @@
 namespace CoinGecko.Api.WebSockets;
 
-/// <summary>Thrown by the CoinGecko WebSocket stream client for protocol / subscription errors.</summary>
+/// <summary>Thrown by <see cref="ICoinGeckoStream"/> for protocol / subscription errors.</summary>
 public sealed class CoinGeckoStreamException : Exception
 {
     /// <summary>Create an exception with a message.</summary>

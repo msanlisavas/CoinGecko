@@ -1,6 +1,6 @@
 namespace CoinGecko.Api.WebSockets;
 
-/// <summary>Arguments for the <c>StateChanged</c> event on a CoinGecko WebSocket stream client.</summary>
+/// <summary>Arguments for <see cref="ICoinGeckoStream.StateChanged"/>.</summary>
 public sealed class StreamStateChangedEventArgs(StreamState previous, StreamState current, Exception? error) : EventArgs
 {
     /// <summary>Previous state.</summary>

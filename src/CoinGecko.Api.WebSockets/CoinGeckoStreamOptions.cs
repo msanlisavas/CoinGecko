@@ -1,6 +1,6 @@
 namespace CoinGecko.Api.WebSockets;
 
-/// <summary>Configuration for a CoinGecko WebSocket stream client.</summary>
+/// <summary>Configuration for <see cref="ICoinGeckoStream"/>.</summary>
 public sealed class CoinGeckoStreamOptions
 {
     /// <summary>Pro-tier API key (Analyst+ plan required by CoinGecko).</summary>

@@ -1,6 +1,6 @@
 namespace CoinGecko.Api.WebSockets;
 
-/// <summary>Lifecycle state of a CoinGecko WebSocket stream client.</summary>
+/// <summary>Lifecycle state of an <see cref="ICoinGeckoStream"/>.</summary>
 public enum StreamState
 {
     /// <summary>Not connected. Initial state and terminal state after <c>DisconnectAsync</c>.</summary>
