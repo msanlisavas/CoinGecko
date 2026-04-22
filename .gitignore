@@ -44,8 +44,8 @@ coverage*.info
 *.nuget.props
 *.nuget.targets
 
-## DocFX generated output
-docs/api/
+## Docs (AI research, plans, specs, generated DocFX output — never commit)
+docs/
 
 ## OS
 .DS_Store
