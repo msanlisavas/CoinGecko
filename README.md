@@ -6,7 +6,7 @@ Four packages — install only what you need:
 
 | Package | NuGet | Downloads | Purpose |
 |---|---|---|---|
-| **CoinGecko.Api** | [![NuGet](https://img.shields.io/nuget/v/CoinGecko.Api.svg?label=v&color=blue)](https://www.nuget.org/packages/CoinGecko.Api) | [![Downloads](https://img.shields.io/nuget/dt/CoinGecko.Api.svg?color=blue)](https://www.nuget.org/packages/CoinGecko.Api) | REST core — 14 sub-clients, 100+ endpoints |
+| **CoinGecko.Api** | [![NuGet](https://img.shields.io/nuget/v/CoinGecko.Api.svg?label=v&color=blue)](https://www.nuget.org/packages/CoinGecko.Api) | [![Downloads](https://img.shields.io/nuget/dt/CoinGecko.Api.svg?color=blue)](https://www.nuget.org/packages/CoinGecko.Api) | REST core — 15 sub-clients, 100+ endpoints |
 | **CoinGecko.Api.WebSockets** | [![NuGet](https://img.shields.io/nuget/vpre/CoinGecko.Api.WebSockets.svg?label=v&color=orange)](https://www.nuget.org/packages/CoinGecko.Api.WebSockets) | [![Downloads](https://img.shields.io/nuget/dt/CoinGecko.Api.WebSockets.svg?color=orange)](https://www.nuget.org/packages/CoinGecko.Api.WebSockets) | Streaming beta (WSS, 4 channels) |
 | **CoinGecko.Api.AiAgentHub** | [![NuGet](https://img.shields.io/nuget/vpre/CoinGecko.Api.AiAgentHub.svg?label=v&color=orange)](https://www.nuget.org/packages/CoinGecko.Api.AiAgentHub) | [![Downloads](https://img.shields.io/nuget/dt/CoinGecko.Api.AiAgentHub.svg?color=orange)](https://www.nuget.org/packages/CoinGecko.Api.AiAgentHub) | `Microsoft.Extensions.AI` function tools |
 | **CoinGecko.Api.AiAgentHub.Mcp** | [![NuGet](https://img.shields.io/nuget/vpre/CoinGecko.Api.AiAgentHub.Mcp.svg?label=v&color=orange)](https://www.nuget.org/packages/CoinGecko.Api.AiAgentHub.Mcp) | [![Downloads](https://img.shields.io/nuget/dt/CoinGecko.Api.AiAgentHub.Mcp.svg?color=orange)](https://www.nuget.org/packages/CoinGecko.Api.AiAgentHub.Mcp) | MCP client → hosted CoinGecko MCP |
@@ -126,11 +126,14 @@ Accessed from `ICoinGeckoClient`:
 | `Global` | global market · DeFi · market_cap_chart (B+) |
 | `Search` | coin/NFT/exchange/category search |
 | `Trending` | trending coins + NFTs + categories |
-| `Onchain` | 29 GeckoTerminal endpoints — networks, DEXes, pools, tokens, OHLCV, trades, simple token price, search, categories (B+/A+) |
+| `Onchain` | 29 GeckoTerminal endpoints — networks, DEXes, pools, tokens, OHLCV, trades, simple token price, search, categories (B+/A+); top holders with optional PnL details (B+) |
 | `Key` | plan + rate limit + credits remaining (B+) |
+| `News` | crypto news + guides aggregated from 100+ publishers (A+) |
 | `Ping` | health check |
 
 _A+ = Analyst or higher, B+ = Basic or higher (any paid plan), P+ = Pro or higher._
+
+Onchain token / pool models surface the new **OTV** fields (`outstanding_supply`, `outstanding_token_value_usd`) and the **`gt_verified`** flag on token + pool attributes.
 
 Every tier gate is enforced client-side by `[RequiresPlan]` — attempts to call a Pro-only method with a Demo key throw `CoinGeckoPlanException` before issuing the HTTP request.
 

@@ -12,10 +12,12 @@ public class ToolsFactoryTests
     {
         var gecko = Substitute.For<ICoinGeckoClient>();
         var tools = CoinGeckoAiTools.Create(gecko);
-        tools.Count.ShouldBe(9);
+        tools.Count.ShouldBe(11);
         tools.Select(t => t.Name).ShouldContain("get_coin_prices");
         tools.Select(t => t.Name).ShouldContain("get_top_markets");
         tools.Select(t => t.Name).ShouldContain("search_onchain_pools");
+        tools.Select(t => t.Name).ShouldContain("get_top_token_holders");
+        tools.Select(t => t.Name).ShouldContain("get_crypto_news");
     }
 
     [Fact]
@@ -34,9 +36,10 @@ public class ToolsFactoryTests
         var gecko = Substitute.For<ICoinGeckoClient>();
         var tools = CoinGeckoAiTools.Create(gecko,
             new CoinGeckoAiToolsOptions { IncludeOnchainTools = false });
-        tools.Count.ShouldBe(7); // 9 - 2 onchain
+        tools.Count.ShouldBe(8); // 11 - 3 onchain (search_pools, token_prices, top_holders)
         tools.Select(t => t.Name).ShouldNotContain("search_onchain_pools");
         tools.Select(t => t.Name).ShouldNotContain("get_onchain_token_prices");
+        tools.Select(t => t.Name).ShouldNotContain("get_top_token_holders");
     }
 
     [Fact]

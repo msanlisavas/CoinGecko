@@ -2,6 +2,7 @@ using System.Globalization;
 using CoinGecko.Api;
 using CoinGecko.Api.AiAgentHub.Projections;
 using CoinGecko.Api.Models;
+using CoinGecko.Api.Models.News;
 using CoinGecko.Api.Models.Onchain;
 
 namespace CoinGecko.Api.AiAgentHub;
@@ -220,5 +221,63 @@ public static class CoinGeckoTools
             .Select(kvp => new OnchainTokenPriceQuote(
                 NetworkId: network, Address: kvp.Key, PriceUsd: kvp.Value!.Value))
             .ToArray();
+    }
+
+    /// <summary>Fetch crypto news (and optionally guides) aggregated from 100+ publishers. Requires Analyst+ plan.</summary>
+    /// <param name="gecko">CoinGecko client.</param>
+    /// <param name="coinId">Filter to articles referencing this CoinGecko coin id (optional). When set, both news and guides are returned by default.</param>
+    /// <param name="language">Language code (e.g. <c>"en"</c>, <c>"ja"</c>). Defaults server-side to <c>"en"</c>.</param>
+    /// <param name="maxArticles">Cap on rows (1-20).</param>
+    public static async Task<NewsSummary[]> GetCryptoNews(
+        ICoinGeckoClient gecko, string? coinId = null, string? language = null, int maxArticles = 10)
+    {
+        var perPage = Math.Clamp(maxArticles, 1, 20);
+        var articles = await gecko.News.GetNewsAsync(new NewsOptions
+        {
+            CoinId = coinId,
+            Language = language,
+            PerPage = perPage,
+        });
+        return articles.Take(maxArticles).Select(a => new NewsSummary(
+            Title: a.Title ?? "",
+            Url: a.Url ?? "",
+            Author: a.Author,
+            PostedAt: a.PostedAt,
+            SourceName: a.SourceName,
+            Type: a.Type ?? "news",
+            RelatedCoinIds: a.RelatedCoinIds)).ToArray();
+    }
+
+    /// <summary>Fetch the top wallet holders for an on-chain token, optionally with realized/unrealized PnL. Requires Basic+ plan.</summary>
+    /// <param name="gecko">CoinGecko client.</param>
+    /// <param name="network">Network id (e.g. <c>"eth"</c>, <c>"base"</c>).</param>
+    /// <param name="tokenAddress">Token contract address.</param>
+    /// <param name="topN">How many top holders to return (1-50; 1-40 on Solana).</param>
+    /// <param name="includePnl">Include average buy price and realized/unrealized PnL per holder.</param>
+    public static async Task<TopHolderSummary[]> GetTopTokenHolders(
+        ICoinGeckoClient gecko, string network, string tokenAddress, int topN = 10, bool includePnl = false)
+    {
+        var capped = Math.Clamp(topN, 1, 50);
+        var resp = await gecko.Onchain.GetTopHoldersAsync(network, tokenAddress, new OnchainTopHoldersOptions
+        {
+            Holders = capped.ToString(CultureInfo.InvariantCulture),
+            IncludePnlDetails = includePnl ? true : null,
+        });
+        var holders = resp.Attributes?.Holders;
+        if (holders is null)
+        {
+            return Array.Empty<TopHolderSummary>();
+        }
+
+        return holders.Select(h => new TopHolderSummary(
+            Rank: h.Rank,
+            Address: h.Address ?? "",
+            Label: h.Label,
+            Amount: h.Amount,
+            Percentage: h.Percentage,
+            ValueUsd: h.Value,
+            AverageBuyPriceUsd: h.AverageBuyPriceUsd,
+            UnrealizedPnlUsd: h.UnrealizedPnlUsd,
+            RealizedPnlUsd: h.RealizedPnlUsd)).ToArray();
     }
 }

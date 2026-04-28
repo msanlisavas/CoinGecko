@@ -22,6 +22,10 @@ public enum CoinGeckoToolSet
     Derivatives = 1 << 6,
     /// <summary>On-chain DEX / GeckoTerminal data.</summary>
     Onchain = 1 << 7,
+    /// <summary>Crypto news (paid plans).</summary>
+    News = 1 << 8,
+    /// <summary>Top token holders with optional PnL details (paid plans).</summary>
+    TopHolders = 1 << 9,
     /// <summary>All tool groups.</summary>
-    All = CoinPrices | CoinSearch | MarketData | Trending | Categories | Nfts | Derivatives | Onchain,
+    All = CoinPrices | CoinSearch | MarketData | Trending | Categories | Nfts | Derivatives | Onchain | News | TopHolders,
 }

@@ -105,7 +105,20 @@ public static class CoinGeckoAiTools
                     => CoinGeckoTools.GetOnchainTokenPrices(client, network, contractAddresses),
                 name: "get_onchain_token_prices",
                 description: "Get on-chain token prices in USD by contract address. Use for tokens not listed on CoinGecko's main aggregator.");
+
+            Add(CoinGeckoToolSet.TopHolders,
+                (string network, string tokenAddress, int topN, bool includePnl)
+                    => CoinGeckoTools.GetTopTokenHolders(client, network, tokenAddress, topN, includePnl),
+                name: "get_top_token_holders",
+                description: "List the top wallet holders of an on-chain token by rank, balance, and percentage of supply. Set includePnl=true to also get each holder's average buy price and realized/unrealized PnL. Requires a paid CoinGecko plan.");
         }
+
+        // News
+        Add(CoinGeckoToolSet.News,
+            (string? coinId, string? language, int maxArticles)
+                => CoinGeckoTools.GetCryptoNews(client, coinId, language, maxArticles),
+            name: "get_crypto_news",
+            description: "Get recent crypto news (and guides when filtered by coin) aggregated from 100+ publishers. Use when the user asks \"what's the latest news on X?\". Requires a paid CoinGecko plan.");
 
         return tools;
     }

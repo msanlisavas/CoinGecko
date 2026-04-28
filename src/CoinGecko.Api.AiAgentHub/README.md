@@ -23,7 +23,7 @@ var gecko = sp.GetRequiredService<ICoinGeckoClient>();
 
 var tools = CoinGeckoAiTools.Create(gecko, new()
 {
-    Tools = CoinGeckoToolSet.CoinPrices | CoinGeckoToolSet.Trending,
+    Tools = CoinGeckoToolSet.CoinPrices | CoinGeckoToolSet.Trending | CoinGeckoToolSet.News,
 });
 
 IChatClient chat = /* OpenAIClient / AnthropicClient / Ollama / Azure — any IChatClient */;
@@ -33,6 +33,21 @@ var response = await chat.GetResponseAsync(
 
 Console.WriteLine(response.Text);
 ```
+
+## Tool sets
+
+| Flag | Tool name | Notes |
+|---|---|---|
+| `CoinPrices` | `get_coin_prices` | Free |
+| `CoinSearch` | `coin_search` | Free |
+| `MarketData` | `get_top_markets` | Free |
+| `Trending` | `get_trending` | Free |
+| `Categories` | `get_categories` | Free |
+| `Nfts` | `get_nft_collection` | Free |
+| `Derivatives` | `get_derivatives` | Free |
+| `Onchain` | `search_onchain_pools`, `get_onchain_token_prices` | Free; gated by `IncludeOnchainTools` |
+| `TopHolders` | `get_top_token_holders` | Paid (Basic+); gated by `IncludeOnchainTools`; pass `includePnl=true` for average buy price + realized/unrealized PnL |
+| `News` | `get_crypto_news` | Paid (Analyst+) |
 
 ## Preview status
 
