@@ -192,13 +192,15 @@ public class OnchainClientBatch5bTests
             req.RequestUri!.AbsolutePath.ShouldEndWith("/onchain/networks/eth/tokens/0xabc/top_holders");
             req.Options.TryGetValue(new HttpRequestOptionsKey<CoinGeckoPlan?>("coingecko.required_plan"), out var plan);
             plan.ShouldBe(CoinGeckoPlan.Basic);
-            return Json("""{"data":[{"id":"0xholder","type":"holder","attributes":{"address":"0xholder"}}]}""");
+            return Json("""{"data":{"id":"eth_0xabc_top_holders","type":"top_holders","attributes":{"last_updated_at":"2026-04-28T10:00:00Z","holders":[{"rank":1,"address":"0xholder","amount":"1000","percentage":"5.5"}]}}}""");
         });
 
-        var result = await sut.GetTopHoldersAsync("eth", "0xabc", TestContext.Current.CancellationToken);
+        var result = await sut.GetTopHoldersAsync("eth", "0xabc", ct: TestContext.Current.CancellationToken);
 
-        result.Length.ShouldBe(1);
-        result[0].Id.ShouldBe("0xholder");
+        result.Id.ShouldBe("eth_0xabc_top_holders");
+        result.Attributes!.Holders!.Count.ShouldBe(1);
+        result.Attributes.Holders[0].Address.ShouldBe("0xholder");
+        result.Attributes.Holders[0].Amount.ShouldBe(1000m);
     }
 
     [Fact]

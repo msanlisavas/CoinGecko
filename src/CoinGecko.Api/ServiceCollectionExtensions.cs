@@ -63,6 +63,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ITrendingClient>(sp => new TrendingClient(sp.GetRequiredService<IHttpClientFactory>().CreateClient(HttpClientName)));
         services.AddTransient<IOnchainClient>(sp => new OnchainClient(sp.GetRequiredService<IHttpClientFactory>().CreateClient(HttpClientName)));
         services.AddTransient<IKeyClient>(sp => new KeyClient(sp.GetRequiredService<IHttpClientFactory>().CreateClient(HttpClientName)));
+        services.AddTransient<INewsClient>(sp => new NewsClient(sp.GetRequiredService<IHttpClientFactory>().CreateClient(HttpClientName)));
 
         services.AddTransient<ICoinGeckoClient, CoinGeckoClient>();
 

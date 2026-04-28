@@ -351,15 +351,18 @@ internal sealed class OnchainClient(HttpClient http) : IOnchainClient
         return await JsonApiUnwrap.ReadDataAsync(resp.Content, CoinGeckoJsonContext.Default.JsonApiResponseOnchainTopTraderArray, ct).ConfigureAwait(false);
     }
 
-    public async Task<OnchainTopHolder[]> GetTopHoldersAsync(string network, string address, CancellationToken ct = default)
+    public async Task<OnchainTopHolders> GetTopHoldersAsync(string network, string address, OnchainTopHoldersOptions? options = null, CancellationToken ct = default)
     {
         var path = UriTemplateExpander.Expand("onchain/networks/{network}/tokens/{address}/top_holders", new[] { ("network", network), ("address", address) });
-        using var req = new HttpRequestMessage(HttpMethod.Get, path);
+        var qs = new QueryStringBuilder()
+            .Add("holders", options?.Holders)
+            .Add("include_pnl_details", options?.IncludePnlDetails);
+        using var req = new HttpRequestMessage(HttpMethod.Get, path + qs);
         req.Options.Set(CoinGeckoRequestOptions.Envelope, ResponseEnvelope.JsonApi);
         req.Options.Set(CoinGeckoRequestOptions.RequiredPlan, (CoinGeckoPlan?)CoinGeckoPlan.Basic);
         using var resp = await _http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
         resp.EnsureSuccessStatusCode();
-        return await JsonApiUnwrap.ReadDataAsync(resp.Content, CoinGeckoJsonContext.Default.JsonApiResponseOnchainTopHolderArray, ct).ConfigureAwait(false);
+        return await JsonApiUnwrap.ReadDataAsync(resp.Content, CoinGeckoJsonContext.Default.JsonApiResponseOnchainTopHolders, ct).ConfigureAwait(false);
     }
 
     public async Task<OnchainHoldersChart> GetHoldersChartAsync(string network, string tokenAddress, int days, CancellationToken ct = default)

@@ -63,6 +63,7 @@ CoinGecko.Api.ICoinGeckoClient.Derivatives.get -> CoinGecko.Api.Resources.IDeriv
 CoinGecko.Api.ICoinGeckoClient.Exchanges.get -> CoinGecko.Api.Resources.IExchangesClient!
 CoinGecko.Api.ICoinGeckoClient.Global.get -> CoinGecko.Api.Resources.IGlobalClient!
 CoinGecko.Api.ICoinGeckoClient.Key.get -> CoinGecko.Api.Resources.IKeyClient!
+CoinGecko.Api.ICoinGeckoClient.News.get -> CoinGecko.Api.Resources.INewsClient!
 CoinGecko.Api.ICoinGeckoClient.Nfts.get -> CoinGecko.Api.Resources.INftsClient!
 CoinGecko.Api.ICoinGeckoClient.Onchain.get -> CoinGecko.Api.Resources.IOnchainClient!
 CoinGecko.Api.ICoinGeckoClient.Ping.get -> CoinGecko.Api.Resources.IPingClient!
@@ -422,6 +423,10 @@ CoinGecko.Api.Models.CoinMarketData.MaxSupply.get -> decimal?
 CoinGecko.Api.Models.CoinMarketData.MaxSupply.init -> void
 CoinGecko.Api.Models.CoinMarketData.McapToTvlRatio.get -> decimal?
 CoinGecko.Api.Models.CoinMarketData.McapToTvlRatio.init -> void
+CoinGecko.Api.Models.CoinMarketData.OutstandingSupply.get -> decimal?
+CoinGecko.Api.Models.CoinMarketData.OutstandingSupply.init -> void
+CoinGecko.Api.Models.CoinMarketData.OutstandingTokenValueUsd.get -> decimal?
+CoinGecko.Api.Models.CoinMarketData.OutstandingTokenValueUsd.init -> void
 CoinGecko.Api.Models.CoinMarketData.PriceChange24h.get -> decimal?
 CoinGecko.Api.Models.CoinMarketData.PriceChange24h.init -> void
 CoinGecko.Api.Models.CoinMarketData.PriceChange24hInCurrency.get -> System.Collections.Generic.IReadOnlyDictionary<string!, decimal?>?
@@ -803,6 +808,35 @@ CoinGecko.Api.Models.NewCoinListing.Name.init -> void
 CoinGecko.Api.Models.NewCoinListing.NewCoinListing() -> void
 CoinGecko.Api.Models.NewCoinListing.Symbol.get -> string?
 CoinGecko.Api.Models.NewCoinListing.Symbol.init -> void
+CoinGecko.Api.Models.News.NewsArticle
+CoinGecko.Api.Models.News.NewsArticle.Author.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.Author.init -> void
+CoinGecko.Api.Models.News.NewsArticle.Image.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.Image.init -> void
+CoinGecko.Api.Models.News.NewsArticle.NewsArticle() -> void
+CoinGecko.Api.Models.News.NewsArticle.PostedAt.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.PostedAt.init -> void
+CoinGecko.Api.Models.News.NewsArticle.RelatedCoinIds.get -> System.Collections.Generic.IReadOnlyList<string!>?
+CoinGecko.Api.Models.News.NewsArticle.RelatedCoinIds.init -> void
+CoinGecko.Api.Models.News.NewsArticle.SourceName.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.SourceName.init -> void
+CoinGecko.Api.Models.News.NewsArticle.Title.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.Title.init -> void
+CoinGecko.Api.Models.News.NewsArticle.Type.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.Type.init -> void
+CoinGecko.Api.Models.News.NewsArticle.Url.get -> string?
+CoinGecko.Api.Models.News.NewsArticle.Url.init -> void
+CoinGecko.Api.Models.News.NewsOptions
+CoinGecko.Api.Models.News.NewsOptions.CoinId.get -> string?
+CoinGecko.Api.Models.News.NewsOptions.CoinId.init -> void
+CoinGecko.Api.Models.News.NewsOptions.Language.get -> string?
+CoinGecko.Api.Models.News.NewsOptions.Language.init -> void
+CoinGecko.Api.Models.News.NewsOptions.Page.get -> int?
+CoinGecko.Api.Models.News.NewsOptions.Page.init -> void
+CoinGecko.Api.Models.News.NewsOptions.PerPage.get -> int?
+CoinGecko.Api.Models.News.NewsOptions.PerPage.init -> void
+CoinGecko.Api.Models.News.NewsOptions.Type.get -> string?
+CoinGecko.Api.Models.News.NewsOptions.Type.init -> void
 CoinGecko.Api.Models.Nft
 CoinGecko.Api.Models.Nft.AssetPlatformId.get -> string?
 CoinGecko.Api.Models.Nft.AssetPlatformId.init -> void
@@ -1063,6 +1097,8 @@ CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.Decimals.get -> int?
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.Decimals.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.FdvUsd.get -> decimal?
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.FdvUsd.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.GtVerified.get -> bool?
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.GtVerified.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.ImageUrl.get -> string?
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.ImageUrl.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.MarketCapUsd.get -> decimal?
@@ -1072,6 +1108,10 @@ CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.Name.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.NormalizedTotalSupply.get -> decimal?
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.NormalizedTotalSupply.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.OnchainTokenAttributes() -> void
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.OutstandingSupply.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.OutstandingSupply.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.OutstandingTokenValueUsd.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.OutstandingTokenValueUsd.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.PriceUsd.get -> decimal?
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.PriceUsd.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTokenAttributes.Symbol.get -> string?
@@ -1150,13 +1190,54 @@ CoinGecko.Api.Models.Onchain.OnchainTokenRelationships.OnchainTokenRelationships
 CoinGecko.Api.Models.Onchain.OnchainTokenRelationships.TopPools.get -> CoinGecko.Api.Serialization.JsonApi.JsonApiRelationship?
 CoinGecko.Api.Models.Onchain.OnchainTokenRelationships.TopPools.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTopHolder
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Attributes.get -> System.Text.Json.Nodes.JsonObject?
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Attributes.init -> void
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Id.get -> string?
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Id.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Address.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Address.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Amount.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Amount.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.AverageBuyPriceUsd.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.AverageBuyPriceUsd.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.ExplorerUrl.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.ExplorerUrl.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Label.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Label.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTopHolder.OnchainTopHolder() -> void
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Type.get -> string?
-CoinGecko.Api.Models.Onchain.OnchainTopHolder.Type.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Percentage.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Percentage.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Rank.get -> int?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Rank.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.RealizedPnlPercentage.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.RealizedPnlPercentage.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.RealizedPnlUsd.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.RealizedPnlUsd.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.TotalBuyCount.get -> long?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.TotalBuyCount.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.TotalSellCount.get -> long?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.TotalSellCount.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.UnrealizedPnlPercentage.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.UnrealizedPnlPercentage.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.UnrealizedPnlUsd.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.UnrealizedPnlUsd.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Value.get -> decimal?
+CoinGecko.Api.Models.Onchain.OnchainTopHolder.Value.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolders
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Attributes.get -> CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes?
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Attributes.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Id.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Id.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.OnchainTopHolders() -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Type.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHolders.Type.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes.Holders.get -> System.Collections.Generic.IReadOnlyList<CoinGecko.Api.Models.Onchain.OnchainTopHolder!>?
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes.Holders.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes.LastUpdatedAt.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes.LastUpdatedAt.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersAttributes.OnchainTopHoldersAttributes() -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions.Holders.get -> string?
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions.Holders.init -> void
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions.IncludePnlDetails.get -> bool?
+CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions.IncludePnlDetails.init -> void
 CoinGecko.Api.Models.Onchain.OnchainTopTrader
 CoinGecko.Api.Models.Onchain.OnchainTopTrader.Attributes.get -> System.Text.Json.Nodes.JsonObject?
 CoinGecko.Api.Models.Onchain.OnchainTopTrader.Attributes.init -> void
@@ -1223,6 +1304,8 @@ CoinGecko.Api.Models.Onchain.PoolAttributes.BaseTokenPriceUsd.get -> decimal?
 CoinGecko.Api.Models.Onchain.PoolAttributes.BaseTokenPriceUsd.init -> void
 CoinGecko.Api.Models.Onchain.PoolAttributes.FdvUsd.get -> decimal?
 CoinGecko.Api.Models.Onchain.PoolAttributes.FdvUsd.init -> void
+CoinGecko.Api.Models.Onchain.PoolAttributes.GtVerified.get -> bool?
+CoinGecko.Api.Models.Onchain.PoolAttributes.GtVerified.init -> void
 CoinGecko.Api.Models.Onchain.PoolAttributes.MarketCapUsd.get -> decimal?
 CoinGecko.Api.Models.Onchain.PoolAttributes.MarketCapUsd.init -> void
 CoinGecko.Api.Models.Onchain.PoolAttributes.Name.get -> string?
@@ -1587,6 +1670,8 @@ CoinGecko.Api.Resources.IGlobalClient.GetDefiAsync(System.Threading.Cancellation
 CoinGecko.Api.Resources.IGlobalClient.GetMarketCapChartAsync(int days, string! vsCurrency = "usd", System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IReadOnlyList<CoinGecko.Api.Models.GlobalMarketCapPoint!>!>!
 CoinGecko.Api.Resources.IKeyClient
 CoinGecko.Api.Resources.IKeyClient.GetAsync(System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.ApiKeyUsage!>!
+CoinGecko.Api.Resources.INewsClient
+CoinGecko.Api.Resources.INewsClient.GetNewsAsync(CoinGecko.Api.Models.News.NewsOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.News.NewsArticle![]!>!
 CoinGecko.Api.Resources.INftsClient
 CoinGecko.Api.Resources.INftsClient.EnumerateListAsync(int perPage = 100, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<CoinGecko.Api.Models.NftListItem!>!
 CoinGecko.Api.Resources.INftsClient.EnumerateMarketsAsync(CoinGecko.Api.Models.NftMarketsOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Collections.Generic.IAsyncEnumerable<CoinGecko.Api.Models.NftMarket!>!
@@ -1621,7 +1706,7 @@ CoinGecko.Api.Resources.IOnchainClient.GetTokenOhlcvAsync(string! network, strin
 CoinGecko.Api.Resources.IOnchainClient.GetTokenPriceAsync(string! network, System.Collections.Generic.IReadOnlyList<string!>! addresses, CoinGecko.Api.Models.Onchain.OnchainTokenPriceOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainTokenPrices!>!
 CoinGecko.Api.Resources.IOnchainClient.GetTokensMultiAsync(string! network, System.Collections.Generic.IReadOnlyList<string!>! addresses, CoinGecko.Api.Models.Onchain.OnchainPoolOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainToken![]!>!
 CoinGecko.Api.Resources.IOnchainClient.GetTokenTradesAsync(string! network, string! tokenAddress, decimal? minVolumeUsd = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainTrade![]!>!
-CoinGecko.Api.Resources.IOnchainClient.GetTopHoldersAsync(string! network, string! address, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainTopHolder![]!>!
+CoinGecko.Api.Resources.IOnchainClient.GetTopHoldersAsync(string! network, string! address, CoinGecko.Api.Models.Onchain.OnchainTopHoldersOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainTopHolders!>!
 CoinGecko.Api.Resources.IOnchainClient.GetTopPoolsByDexAsync(string! network, string! dex, CoinGecko.Api.Models.Onchain.OnchainPoolsListOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.Pool![]!>!
 CoinGecko.Api.Resources.IOnchainClient.GetTopPoolsByNetworkAsync(string! network, CoinGecko.Api.Models.Onchain.OnchainPoolsListOptions? options = null, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.Pool![]!>!
 CoinGecko.Api.Resources.IOnchainClient.GetTopTradersAsync(string! networkId, string! tokenAddress, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<CoinGecko.Api.Models.Onchain.OnchainTopTrader![]!>!

@@ -85,9 +85,9 @@ public interface IOnchainClient
     [RequiresPlan(CoinGeckoPlan.Basic)]
     Task<OnchainTopTrader[]> GetTopTradersAsync(string networkId, string tokenAddress, CancellationToken ct = default);
 
-    /// <summary>Returns top holders for a token. <c>GET /onchain/networks/{network}/tokens/{address}/top_holders</c></summary>
+    /// <summary>Returns top holders for a token, optionally with PnL details. <c>GET /onchain/networks/{network}/tokens/{address}/top_holders</c></summary>
     [RequiresPlan(CoinGeckoPlan.Basic)]
-    Task<OnchainTopHolder[]> GetTopHoldersAsync(string network, string address, CancellationToken ct = default);
+    Task<OnchainTopHolders> GetTopHoldersAsync(string network, string address, OnchainTopHoldersOptions? options = null, CancellationToken ct = default);
 
     /// <summary>Returns holder count chart for a token. <c>GET /onchain/networks/{network}/tokens/{tokenAddress}/holders_chart</c></summary>
     [RequiresPlan(CoinGeckoPlan.Basic)]

@@ -16,6 +16,7 @@ internal sealed class CoinGeckoClient(
     ITrendingClient trending,
     IOnchainClient onchain,
     IKeyClient key,
+    INewsClient news,
     IPingClient ping) : ICoinGeckoClient
 {
     public ICoinsClient Coins { get; } = coins;
@@ -31,5 +32,6 @@ internal sealed class CoinGeckoClient(
     public ITrendingClient Trending { get; } = trending;
     public IOnchainClient Onchain { get; } = onchain;
     public IKeyClient Key { get; } = key;
+    public INewsClient News { get; } = news;
     public IPingClient Ping { get; } = ping;
 }

@@ -44,6 +44,9 @@ public interface ICoinGeckoClient
     /// <summary>Gets the sub-client for the Key resource group.</summary>
     IKeyClient Key { get; }
 
+    /// <summary>Gets the sub-client for the Crypto News resource group (paid plans).</summary>
+    INewsClient News { get; }
+
     /// <summary>Gets the sub-client for the Ping resource group.</summary>
     IPingClient Ping { get; }
 }

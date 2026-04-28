@@ -65,6 +65,15 @@ public sealed record OnchainOhlcvOptions
     public string? Token { get; init; }
 }
 
+/// <summary>Options for the top-holders endpoint.</summary>
+public sealed record OnchainTopHoldersOptions
+{
+    /// <summary>How many top holders to return. Pass an integer (max 50, 40 for Solana) or <c>"max"</c>. Defaults to 10 server-side.</summary>
+    public string? Holders { get; init; }
+    /// <summary>If true, include average buy price, realized/unrealized PnL, and per-holder transaction counts in the response.</summary>
+    public bool? IncludePnlDetails { get; init; }
+}
+
 /// <summary>Timeframe granularity for OHLCV.</summary>
 public enum OnchainTimeframe
 {

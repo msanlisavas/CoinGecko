@@ -47,6 +47,8 @@ public sealed class PoolAttributes
     [JsonPropertyName("transactions")] public IReadOnlyDictionary<string, IReadOnlyDictionary<string, long?>>? Transactions { get; init; }
     /// <summary>Volume (USD) per window.</summary>
     [JsonPropertyName("volume_usd")] public IReadOnlyDictionary<string, decimal?>? VolumeUsd { get; init; }
+    /// <summary>True if the pool is verified by GeckoTerminal.</summary>
+    [JsonPropertyName("gt_verified")] public bool? GtVerified { get; init; }
 }
 
 /// <summary>Relationship pointers for a pool.</summary>

@@ -87,6 +87,10 @@ public sealed class CoinMarketData
     [JsonPropertyName("max_supply")] public decimal? MaxSupply { get; init; }
     /// <summary>Circulating supply.</summary>
     [JsonPropertyName("circulating_supply")] public decimal? CirculatingSupply { get; init; }
+    /// <summary>Outstanding token supply (max theoretical supply for OTV calculation).</summary>
+    [JsonPropertyName("outstanding_supply")] public decimal? OutstandingSupply { get; init; }
+    /// <summary>Outstanding token value in USD — theoretical maximum valuation.</summary>
+    [JsonPropertyName("outstanding_token_value_usd")] public decimal? OutstandingTokenValueUsd { get; init; }
     /// <summary>Last updated timestamp.</summary>
     [JsonPropertyName("last_updated")] public DateTimeOffset? LastUpdated { get; init; }
 }

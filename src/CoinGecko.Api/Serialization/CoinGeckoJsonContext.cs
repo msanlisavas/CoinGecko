@@ -14,6 +14,8 @@ namespace CoinGecko.Api.Serialization;
     NumberHandling = JsonNumberHandling.AllowReadingFromString,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     Converters = new[] { typeof(UnixSecondsConverter), typeof(TimestampedValueConverter), typeof(CoinOhlcConverter), typeof(SupplyPointConverter), typeof(TolerantDecimalConverter) })]
+[JsonSerializable(typeof(CoinGecko.Api.Models.News.NewsArticle))]
+[JsonSerializable(typeof(CoinGecko.Api.Models.News.NewsArticle[]))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.PingResponse))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingResults))]
 [JsonSerializable(typeof(CoinGecko.Api.Models.TrendingCoinItem))]
@@ -150,7 +152,7 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(JsonApiResponse<OnchainTokenInfo>))]
 [JsonSerializable(typeof(JsonApiResponse<OnchainTokenInfo[]>))]
 [JsonSerializable(typeof(JsonApiResponse<OnchainTopTrader[]>))]
-[JsonSerializable(typeof(JsonApiResponse<OnchainTopHolder[]>))]
+[JsonSerializable(typeof(JsonApiResponse<OnchainTopHolders>))]
 [JsonSerializable(typeof(JsonApiResponse<OnchainHoldersChart>))]
 [JsonSerializable(typeof(JsonApiResponse<OnchainCategory[]>))]
 [JsonSerializable(typeof(JsonApiResponse<OnchainTokenPrices>))]
@@ -161,7 +163,10 @@ namespace CoinGecko.Api.Serialization;
 [JsonSerializable(typeof(OnchainTokenInfo))]
 [JsonSerializable(typeof(OnchainTokenInfoAttributes))]
 [JsonSerializable(typeof(OnchainTopTrader))]
+[JsonSerializable(typeof(OnchainTopHolders))]
+[JsonSerializable(typeof(OnchainTopHoldersAttributes))]
 [JsonSerializable(typeof(OnchainTopHolder))]
+[JsonSerializable(typeof(OnchainTopHolder[]))]
 [JsonSerializable(typeof(OnchainHoldersChart))]
 [JsonSerializable(typeof(OnchainHoldersChartAttributes))]
 [JsonSerializable(typeof(OnchainCategory))]

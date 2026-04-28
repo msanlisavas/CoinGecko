@@ -45,6 +45,12 @@ public sealed class OnchainTokenAttributes
     [JsonPropertyName("volume_usd")] public IReadOnlyDictionary<string, decimal?>? VolumeUsd { get; init; }
     /// <summary>Total reserve across pools (USD).</summary>
     [JsonPropertyName("total_reserve_in_usd")] public decimal? TotalReserveInUsd { get; init; }
+    /// <summary>Outstanding token supply (max theoretical supply for OTV calculation).</summary>
+    [JsonPropertyName("outstanding_supply")] public decimal? OutstandingSupply { get; init; }
+    /// <summary>Outstanding token value in USD — theoretical maximum valuation (price × outstanding_supply).</summary>
+    [JsonPropertyName("outstanding_token_value_usd")] public decimal? OutstandingTokenValueUsd { get; init; }
+    /// <summary>True if the token is verified by GeckoTerminal.</summary>
+    [JsonPropertyName("gt_verified")] public bool? GtVerified { get; init; }
 }
 
 /// <summary>Token relationship pointers.</summary>
