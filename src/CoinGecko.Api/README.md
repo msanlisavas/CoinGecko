@@ -33,7 +33,7 @@ var btc = await gecko.Coins.GetAsync("bitcoin");
 Console.WriteLine($"BTC: ${btc.MarketData.CurrentPrice["usd"]}");
 ```
 
-See the [full documentation](https://github.com/msanlisavas/CoinGecko) for all 14 sub-clients, streaming (CoinGecko.Api.WebSockets), and AI Agent Hub integrations (CoinGecko.Api.AiAgentHub, CoinGecko.Api.AiAgentHub.Mcp).
+See the [full documentation](https://github.com/msanlisavas/CoinGecko) for all 15 sub-clients (Coins, NFTs, Exchanges, Derivatives, Categories, AssetPlatforms, Companies, Simple, Global, Search, Trending, Onchain, Key, News, Ping), streaming (CoinGecko.Api.WebSockets), and AI Agent Hub integrations (CoinGecko.Api.AiAgentHub, CoinGecko.Api.AiAgentHub.Mcp).
 
 ## License
 

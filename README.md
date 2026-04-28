@@ -316,6 +316,8 @@ eng/                    Shared build assets (icon)
 
 Each release runs under the GitHub **`Production`** environment and requires the `NUGET_API_KEY` secret configured there. Stable `-api` releases are published as regular releases; any `-preview-*` tag is automatically marked as a GitHub prerelease.
 
+Per-package release notes and breaking-change details live in [CHANGELOG.md](CHANGELOG.md).
+
 ---
 
 ## Contributing
