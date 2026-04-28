@@ -9,6 +9,9 @@ permissions:
   security-events: write
   actions: read
   contents: read
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -17,6 +20,13 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '9.0.x'
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
       - uses: github/codeql-action/init@v4
         with:
           languages: 'csharp'
