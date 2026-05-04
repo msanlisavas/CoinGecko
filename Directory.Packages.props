@@ -8,7 +8,7 @@
   <ItemGroup Label="Runtime">
     <PackageVersion Include="ModelContextProtocol" Version="1.2.0" />
     <!-- Bumped to 10.x to satisfy ModelContextProtocol 1.2.0 transitive requirements -->
-    <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.5.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.5.1" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Options" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.7" />
