@@ -17,20 +17,29 @@
 
   <ItemGroup Label="Build-time only (not packed)">
     <PackageVersion Include="MinVer" Version="7.0.0" />
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.203" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.401" />
     <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" />
   </ItemGroup>
 
   <ItemGroup Label="Tests">
-    <PackageVersion Include="xunit.v3" Version="1.0.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+    <PackageVersion Include="xunit.v3" Version="3.2.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
-    <PackageVersion Include="WireMock.Net" Version="2.4.0" />
-    <PackageVersion Include="Verify.Xunit" Version="26.0.0" />
+    <!-- Minimal, not WireMock.Net: the full package pulls JsonPath.Net/Json.More.Net (OSMF EULA, fee-bearing) -->
+    <PackageVersion Include="WireMock.Net.Minimal" Version="2.15.0" />
     <PackageVersion Include="coverlet.collector" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Transitive pins (tests only)">
+    <!-- WireMock.Net.Minimal 2.15.0 resolves vulnerable versions of these. The advisories are published
+         only on the upstream repos, so NuGet audit and Dependabot don't flag them, and Dependabot never
+         updates a pin that has no PackageReference. Re-check them when WireMock.Net.Minimal moves, and
+         drop them once it resolves fixed versions on its own. -->
+    <PackageVersion Include="Scriban.Signed" Version="7.2.7" /> <!-- GHSA-89cf-6hmv-8rxm, fixed in 7.2.6 -->
+    <PackageVersion Include="SharpYaml" Version="2.1.5" /> <!-- GHSA-f5r6-g6gp-5xmf, fixed in 2.1.5 -->
   </ItemGroup>
 
 

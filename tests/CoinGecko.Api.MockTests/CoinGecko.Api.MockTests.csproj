@@ -24,7 +24,7 @@
     <PackageReference Include="coverlet.collector">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="WireMock.Net" />
+    <PackageReference Include="WireMock.Net.Minimal" />
   </ItemGroup>
 
   <ItemGroup>
