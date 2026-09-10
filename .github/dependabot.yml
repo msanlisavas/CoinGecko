@@ -5,22 +5,32 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    open-pull-requests-limit: 10
     groups:
       # CentralPackageTransitivePinningEnabled makes a partial bump fail restore (NU1109), so move these together.
       microsoft-extensions:
         patterns: ["Microsoft.Extensions.*"]
-      # xunit.v3 and its VSTest adapter are released in lockstep.
+      # xunit.v3 and its VSTest adapter usually release together.
       xunit:
         patterns: ["xunit.v3", "xunit.runner.visualstudio"]
       test-tooling:
-        patterns: ["Microsoft.NET.Test.Sdk", "coverlet.*", "Shouldly", "NSubstitute*", "WireMock.Net*", "Scriban.Signed", "SharpYaml"]
+        patterns: ["Microsoft.NET.Test.Sdk", "coverlet.*", "Shouldly", "NSubstitute*", "WireMock.Net*"]
         update-types: ["minor", "patch"]
+      # Adjacent lines in Directory.Packages.props; separate PRs conflict.
+      blazor-sample:
+        patterns: ["Microsoft.AspNetCore.Components.WebAssembly*"]
     ignore:
       # These set the minimum version for AiAgentHub/AiAgentHub.Mcp consumers, so raise them by hand.
       # 10.5.1+ removed WebSearchToolResultContent.Results (dotnet/extensions#7503), and every newer
       # ModelContextProtocol needs a higher Microsoft.Extensions.AI.Abstractions. Also suppresses security PRs.
       - dependency-name: "Microsoft.Extensions.AI.Abstractions"
       - dependency-name: "ModelContextProtocol"
+      # A new major raises the floor for CoinGecko.Api/WebSockets consumers; take it by hand.
+      - dependency-name: "Microsoft.Extensions.*"
+        update-types: ["version-update:semver-major"]
+      # 5.x reports compiler-generated record members; adopting it means updating PublicAPI.*.txt.
+      - dependency-name: "Microsoft.CodeAnalysis.PublicApiAnalyzers"
+        update-types: ["version-update:semver-major"]
       # The Blazor sample targets net9.0; 10.x of these packages is net10.0-only.
       - dependency-name: "Microsoft.AspNetCore.Components.WebAssembly*"
         update-types: ["version-update:semver-major"]
